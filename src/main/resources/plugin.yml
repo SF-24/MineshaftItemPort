@@ -1,0 +1,17 @@
+name: Mineshaft Item Port
+version: '0.1'
+main: com.mineshaft.mineshaftAHardcodedItemPort.MineshaftItemPort
+api-version: '1.20'
+prefix: [MineshaftItemPort]
+authors: [Mineshaft]
+description: A port of items from the old "Another Rpg Plugin"
+website: github.com/SF-24
+commands:
+  gethardcodeditem:
+    aliases: [getolditem, getporteditem]
+    permission: mineshaft.getitem
+    usage: "Usage: /getolditem <item>"
+permissions:
+  mineshaft.getitem:
+    default: op
+
