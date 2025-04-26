@@ -11,13 +11,12 @@ import org.bukkit.potion.PotionEffectType;
 
 public class FoodListener implements Listener {
 
-    public FoodListener() {}
-
     @EventHandler
     public void onEat(PlayerItemConsumeEvent e) {
-        if (e.getItem().getType() == Material.SUSPICIOUS_STEW) {
+        if (e.getItem().getType() == Material.SUSPICIOUS_STEW || e.getItem().getType() == Material.POTION) {
             NBT.get(e.getItem(), nbt -> {
-                String potionType = (String) nbt.getString("Potion");
+                String potionType = (String) nbt.getString("Potion").toLowerCase();
+                System.out.println("Checking drink....");
                 if(potionType.contains("athelas")) {
                     Player player = e.getPlayer();
                     player.getActivePotionEffects().add(new PotionEffect(PotionEffectType.REGENERATION, 1200, 0, true, false, true));
@@ -37,7 +36,7 @@ public class FoodListener implements Listener {
                     player.setFoodLevel(Math.min(player.getFoodLevel()+6, 20));
                     player.setSaturation(Math.min(player.getSaturation()+6, 20));
                     player.setHealth(Math.max(player.getHealth()-2.0, 1.0));
-                } else if(potionType.contains("EntDraught_")) {
+                } else if(potionType.contains("entdraught_")) {
                     Player player = e.getPlayer();
                     String type = potionType.substring(potionType.lastIndexOf("_")+1);
                     switch(type) {

@@ -11,13 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.util.StringUtil;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static java.awt.Color.red;
 
 public class GetItemCommand implements CommandExecutor {
     @Override
@@ -40,17 +33,18 @@ public class GetItemCommand implements CommandExecutor {
                 NBT.modify(athelasSoup, nbt -> {
                     nbt.setString("Potion", "Athelas");
                 });
+                player.getInventory().addItem(athelasSoup);
             } else if(args[0].equals("orc_draught")) {
                 ItemStack athelasSoup = new ItemStack(Material.POTION);
                 PotionMeta meta = (PotionMeta) athelasSoup.getItemMeta();
                 assert meta != null;
-                meta.setColor(Color.RED);
                 meta.setDisplayName(ChatColor.WHITE + "Orc Draught");
                 meta.setCustomModelData(11);
                 athelasSoup.setItemMeta(meta);
                 NBT.modify(athelasSoup, nbt -> {
                     nbt.setString("Potion", "Orc_draught");
                 });
+                player.getInventory().addItem(athelasSoup);
             } else if(args[0].equals("miruvor")) {
                 ItemStack miruvor = new ItemStack(Material.POTION);
                 ItemMeta miruvorMeta = miruvor.getItemMeta();
@@ -106,6 +100,7 @@ public class GetItemCommand implements CommandExecutor {
                 NBT.modify(entDrink, nbt -> {
                     nbt.setString("Potion", "EntDraught_" + args[1]);
                 });
+                player.getInventory().addItem(entDrink);
 
             } else if(args[0].equals("teleport_scroll")) {
                 // TODO:

@@ -16,7 +16,7 @@ public class GetItemTabCompleter implements TabCompleter {
         if(args.length==1) {
             return StringUtil.copyPartialMatches(args[0], Arrays.asList("athelas_soup","miruvor","ent_draught","ocr_draught","teleport_scroll"),new ArrayList<>());
         } else if(args.length==2 && args[0].equals("ent_draught")) {
-            return StringUtil.copyPartialMatches(args[0], Arrays.asList("blue","silver","yellow","brown","red","gold","green","purple"),new ArrayList<>());
+            return StringUtil.copyPartialMatches(args[1], Arrays.asList("blue","silver","yellow","brown","red","gold","green","purple"),new ArrayList<>());
         }
 
         return null;

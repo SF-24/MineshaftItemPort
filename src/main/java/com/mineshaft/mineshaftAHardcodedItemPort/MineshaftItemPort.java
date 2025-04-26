@@ -9,13 +9,10 @@ public final class MineshaftItemPort extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        System.out.println("Mineshaft Item Port enabled");
         getCommand("gethardcodeditem").setExecutor(new GetItemCommand());
         getCommand("gethardcodeditem").setTabCompleter(new GetItemTabCompleter());
-        Bukkit.getPluginManager().registerEvents(new FoodListener(), this);
-    }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
+        Bukkit.getPluginManager().registerEvents(new FoodListener(), this);
     }
 }

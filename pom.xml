@@ -44,7 +44,7 @@
                     <relocations>
                         <relocation>
                             <pattern>de.tr7zw.changeme.nbtapi</pattern>
-                            <shadedPattern>com.mineshaft.util.nbtapi</shadedPattern>
+                            <shadedPattern>com.shaded.util.nbtapi</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
