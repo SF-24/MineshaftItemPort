@@ -10,7 +10,6 @@ commands:
   gethardcodeditem:
     aliases: [getolditem, getporteditem]
     permission: mineshaft.getitem
-    usage: "Usage: /getolditem <item>"
 permissions:
   mineshaft.getitem:
     default: op

@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MineshaftItemPort extends JavaPlugin {
 
+
     @Override
     public void onEnable() {
         System.out.println("Mineshaft Item Port enabled");
@@ -14,5 +15,10 @@ public final class MineshaftItemPort extends JavaPlugin {
         getCommand("gethardcodeditem").setTabCompleter(new GetItemTabCompleter());
 
         Bukkit.getPluginManager().registerEvents(new FoodListener(), this);
+        Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
+    }
+
+    public static MineshaftItemPort getInstance() {
+        return MineshaftItemPort.getPlugin(MineshaftItemPort.class);
     }
 }
