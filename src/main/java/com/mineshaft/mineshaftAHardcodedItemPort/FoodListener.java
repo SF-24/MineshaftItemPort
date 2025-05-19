@@ -3,7 +3,6 @@ package com.mineshaft.mineshaftAHardcodedItemPort;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.PlayerManager;
 import de.tr7zw.nbtapi.NBT;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,8 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.Objects;
 
 public class FoodListener implements Listener {
 
