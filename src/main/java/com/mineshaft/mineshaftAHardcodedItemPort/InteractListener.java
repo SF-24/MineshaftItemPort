@@ -1,8 +1,11 @@
 package com.mineshaft.mineshaftAHardcodedItemPort;
 
+import com.dre.brewery.api.BreweryApi;
+import com.dre.brewery.api.events.brew.BrewModifyEvent;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.DrinkManager;
-import com.mineshaft.mineshaftAHardcodedItemPort.manager.Drinks;
+import com.mineshaft.mineshaftAHardcodedItemPort.manager.PlayerManager;
+import de.tr7zw.nbtapi.NBT;
 import org.bukkit.Material;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Skull;
@@ -11,10 +14,36 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.lang.reflect.Field;
+import java.nio.file.StandardWatchEventKinds;
 
 public class InteractListener implements Listener {
+
+    @EventHandler
+    public void onBrew(BrewModifyEvent e) {
+        if(e.getType().equals(BrewModifyEvent.Type.FILL)) {
+            ItemStack mainHand = e.getPlayer().getInventory().getItemInMainHand();
+            if (mainHand.getType().equals(Material.GLASS_BOTTLE) && mainHand.getItemMeta()!=null && mainHand.getItemMeta().hasCustomModelData() && mainHand.getItemMeta().getCustomModelData()==Container.TANKARD.getItem().getItemMeta().getCustomModelData()) {
+                MineshaftItemPort.getInstance().getServer().getScheduler().runTaskLaterAsynchronously(MineshaftItemPort.getInstance(), () -> {
+                    ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
+                    ItemMeta meta = item.getItemMeta();
+                    assert meta != null;
+                    meta.setCustomModelData(DrinkManager.getBrewModelData(e.getBrew(), Container.TANKARD));
+                    item.setItemMeta(meta);
+                    Container finalContainer = Container.TANKARD;
+                    NBT.modify(item, nbt -> {
+                        nbt.setString("Container", finalContainer.name().toLowerCase());
+                    });
+
+                    e.getPlayer().getInventory().setItemInMainHand(item);
+                }, 1 / 40);
+
+            }
+        }
+    }
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e) throws RuntimeException {

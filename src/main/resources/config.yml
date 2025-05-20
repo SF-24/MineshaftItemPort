@@ -1,0 +1,9 @@
+#
+# Custom model data for brews in different containers
+# Specifically brews from BreweryX
+#
+
+
+tankard:
+  ale: 14
+  beer: 14

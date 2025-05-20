@@ -20,8 +20,29 @@ public enum Drinks {
         this.placedDrinksData=placedDrinksData;
     }
 
+    public int getContainerModelData(Container container) {
+        switch(container) {
+            case NULL -> {
+                return 0;
+            }
+            case BOWL -> {
+                return bowlModelData;
+            }
+            case BOTTLE -> {
+                return bottleModelData;
+            }
+            case TANKARD -> {
+                return tankardmodelData;
+            }
+        }
+        return 0;
+    }
+
+    @Deprecated
     public int getBowlModelData() {return bowlModelData;}
+    @Deprecated
     public int getBottleModelData() {return bottleModelData;}
+    @Deprecated
     public int getTankardModelData() {return tankardmodelData;}
     public PlaceableDrinks getPlacedDrinks() {return placedDrinksData;}
 

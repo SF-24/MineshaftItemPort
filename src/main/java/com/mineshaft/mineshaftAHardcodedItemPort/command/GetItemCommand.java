@@ -1,5 +1,6 @@
 package com.mineshaft.mineshaftAHardcodedItemPort.command;
 
+import com.dre.brewery.api.BreweryApi;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.DrinkManager;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.Drinks;
@@ -18,9 +19,7 @@ import org.bukkit.inventory.meta.SuspiciousStewMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.io.CharConversionException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,6 +33,47 @@ public class GetItemCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.RED + "You must be a player to use this command!");
         }
         Player player = (Player) sender;
+
+        if(args.length==2 && args[0].equalsIgnoreCase("make_container")) {
+            Container containerVar = Container.NULL;
+            for(Container container : Container.values()) {
+                if(args[1].equalsIgnoreCase(container.name())) {
+                    containerVar=container;
+                }
+            }
+            if(containerVar.equals(Container.NULL)) {
+                player.sendMessage(ChatColor.RED + "Invalid container");
+                return false;
+            }
+            ItemStack item = player.getInventory().getItemInMainHand();
+            ItemMeta meta = item.getItemMeta();
+            if(BreweryApi.isBrew(item)) {
+                if(containerVar.equals(Container.TANKARD)) {
+                    if(meta instanceof PotionMeta) {
+                        meta.setCustomModelData(DrinkManager.getBrewModelData(BreweryApi.getBrew(item), containerVar));
+                        ((PotionMeta) meta).setColor(Color.fromRGB(255,255,255));
+                    }
+                } else {
+                    player.sendMessage("Must use 'TANKARD' for brewery items");
+                    return false;
+                }
+            } else if(DrinkManager.isDrink(item)) {
+                if(DrinkManager.getDrink(item).getContainerModelData(containerVar)<=0) {
+                    player.sendMessage(ChatColor.RED + "Invalid container for this item");
+                    return false;
+                }
+                assert meta != null;
+                meta.setCustomModelData(DrinkManager.getDrink(item).getContainerModelData(containerVar));
+            }
+            item.setItemMeta(meta);
+            // Set container NBT data:
+            Container finalContainerVar = containerVar;
+            NBT.modify(item, nbt -> {
+                nbt.setString("Container", finalContainerVar.name().toLowerCase());
+            });
+            // Update the item.
+            player.getInventory().setItemInMainHand(item);
+        }
 
         if((args.length==1 || args.length==2) && DrinkManager.isDrink(args[0])) {
 
@@ -54,26 +94,15 @@ public class GetItemCommand implements CommandExecutor {
                 }
             }
             Drinks drink = DrinkManager.getDrink(args[0]);
-            int modelData=0;
+            int modelData=drink.getContainerModelData(container);
 
             switch(container) {
-                case BOWL:
-                    item = new ItemStack(Material.BOWL);
-                    modelData = drink.getBowlModelData();
-                    break;
-                case TANKARD:
+                case TANKARD, BOTTLE:
                     item=new ItemStack(Material.POTION);
                     PotionMeta meta1 = (PotionMeta) item.getItemMeta();
+                    assert meta1 != null;
                     meta1.setColor(Color.fromRGB(255,255,255));
                     item.setItemMeta(meta1);
-                    modelData=drink.getTankardModelData();
-                    break;
-                case BOTTLE:
-                    item=new ItemStack(Material.POTION);
-                    PotionMeta meta2 = (PotionMeta) item.getItemMeta();
-                    meta2.setColor(Color.fromRGB(255,255,255));
-                    item.setItemMeta(meta2);
-                    modelData=drink.getBottleModelData();
                     break;
                 default:
                     item=new ItemStack(Material.POTION);

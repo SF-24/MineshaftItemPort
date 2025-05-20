@@ -1,5 +1,7 @@
 package com.mineshaft.mineshaftAHardcodedItemPort;
 
+import com.dre.brewery.api.BreweryApi;
+import com.dre.brewery.api.events.brew.BrewDrinkEvent;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.PlayerManager;
 import de.tr7zw.nbtapi.NBT;
@@ -11,6 +13,8 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Objects;
+
 public class FoodListener implements Listener {
 
     @EventHandler
@@ -21,14 +25,31 @@ public class FoodListener implements Listener {
 
             NBT.get(e.getItem(), nbt -> {
 
-                Container container = Container.valueOf(nbt.getString("Container").toUpperCase());
+                if(BreweryApi.isBrew(e.getItem())) {
+                    e.setCancelled(false);
+                    return;
+                }
+
+                String strContainer = nbt.getString("Container");
+                Container container = Container.NULL;
+                for(Container c : Container.values()) {
+                    if(strContainer.equalsIgnoreCase(c.name())) {
+                        container=c;
+                    }
+                }
+
+                
+
+                if(container.equals(Container.NULL)) {
+                    e.setCancelled(false);
+                    return;
+                }
+
                 System.out.println("container: " + container);
 
                 if(container.equals(Container.TANKARD)) {
-                    System.out.printf("tankard!");
                     ItemStack dropItem = container.getItem();
-                    if (e.getItem().getAmount() > 1) {
-                        System.out.println("more than one");
+                    if (e.getItem().getAmount() > 1 && !BreweryApi.isBrew(e.getItem())) {
                         // Give the player the container item
                         if (PlayerManager.canTakeMoreOfItem(e.getPlayer(), dropItem)) {
                             e.getPlayer().getInventory().addItem(dropItem);
@@ -44,14 +65,16 @@ public class FoodListener implements Listener {
 
                     } else {
                         // Set hand item after drinking
+
                         if (e.getHand().equals(EquipmentSlot.HAND)) {
-                            System.out.println("MAINHAND");
                             MineshaftItemPort.getInstance().getServer().getScheduler().runTaskLaterAsynchronously(MineshaftItemPort.getInstance(), () -> {
+
                                 e.getPlayer().getInventory().setItemInMainHand(new ItemStack(dropItem));
                             }, 1/40);
                         } else if (e.getHand().equals(EquipmentSlot.OFF_HAND)) {
 
                             MineshaftItemPort.getInstance().getServer().getScheduler().runTaskLaterAsynchronously(MineshaftItemPort.getInstance(), () -> {
+
                                 e.getPlayer().getInventory().setItemInOffHand(new ItemStack(dropItem));
                             }, 1 /40);
                         }
@@ -101,6 +124,73 @@ public class FoodListener implements Listener {
                     }
                 }
                 e.setCancelled(false);
+            });
+        }
+    }
+
+    @EventHandler
+    public void drinkBrew(BrewDrinkEvent event) {
+        ItemStack brew;
+        final boolean mainHand;
+        if(Objects.equals(event.getPlayer().getInventory().getItemInMainHand().getItemMeta(), event.getItemMeta())) {
+            brew = event.getPlayer().getInventory().getItemInMainHand();
+            mainHand=true;
+        } else if(Objects.equals(event.getPlayer().getInventory().getItemInOffHand().getItemMeta(), event.getItemMeta())) {
+            brew = event.getPlayer().getInventory().getItemInOffHand();
+            mainHand=false;
+        } else {
+            return;
+        }
+        if (brew.getAmount() > 1) {
+            System.out.printf("Returning vanished items...");
+            // Recompense items which vanished due to the brewery plugin.
+
+            NBT.get(brew, nbt -> {
+
+                String strContainer = nbt.getString("Container");
+                Container container = Container.NULL;
+                for (Container c : Container.values()) {
+                    if (strContainer.equalsIgnoreCase(c.name())) {
+                        container = c;
+                    }
+                }
+                Container finalContainer = container;
+                MineshaftItemPort.getInstance().getServer().getScheduler().runTaskLaterAsynchronously(MineshaftItemPort.getInstance(), () -> {
+                    brew.setAmount(brew.getAmount() - 1);
+                    System.out.printf("Container " + finalContainer);
+                    if (finalContainer.equals(Container.NULL)) {
+                        event.getPlayer().getInventory().addItem(new ItemStack(Material.GLASS_BOTTLE));
+                    } else {
+                        event.getPlayer().getInventory().addItem(finalContainer.getItem());
+                    }
+                    if (mainHand) {
+                        event.getPlayer().getInventory().setItemInMainHand(brew);
+                    } else {
+                        event.getPlayer().getInventory().setItemInOffHand(brew);
+                    }
+                }, 1 / 80);
+            });
+        } else {
+            NBT.get(brew, nbt -> {
+
+                String strContainer = nbt.getString("Container");
+                Container container = Container.NULL;
+                for (Container c : Container.values()) {
+                    System.out.println("container:" + strContainer);
+                    if (strContainer.equalsIgnoreCase(c.name())) {
+                        container = c;
+                    }
+                }
+                Container finalContainer = container;
+
+                if(container == Container.NULL) {return;}
+                MineshaftItemPort.getInstance().getServer().getScheduler().runTaskLaterAsynchronously(MineshaftItemPort.getInstance(), () -> {
+                    if (mainHand) {
+                        event.getPlayer().getInventory().setItemInMainHand(finalContainer.getItem());
+                    } else {
+                        event.getPlayer().getInventory().setItemInOffHand(finalContainer.getItem());
+                    }
+                }, 1 / 80);
             });
         }
     }

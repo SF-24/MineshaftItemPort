@@ -1,5 +1,7 @@
 package com.mineshaft.mineshaftAHardcodedItemPort.manager;
 
+import com.dre.brewery.Brew;
+import com.dre.brewery.api.BreweryApi;
 import com.mineshaft.mineshaftAHardcodedItemPort.MineshaftItemPort;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
@@ -17,6 +19,13 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class DrinkManager {
+
+    public static int getBrewModelData(Brew brew, Container container) {
+        System.out.println("BREW: " + BreweryApi.getRecipeName(brew));
+        System.out.println("MODEL: " + ConfigBridge.getCustomModelDataOfBrew(BreweryApi.getRecipeName(brew), container));
+        return ConfigBridge.getCustomModelDataOfBrew(BreweryApi.getRecipeName(brew), container);
+    }
+
 
     public static boolean isDrink(String name) {
         if(name==null)return false;
