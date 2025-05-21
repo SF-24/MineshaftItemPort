@@ -51,7 +51,7 @@ public class GetItemCommand implements CommandExecutor {
                 if(containerVar.equals(Container.TANKARD)) {
                     if(meta instanceof PotionMeta) {
                         meta.setCustomModelData(DrinkManager.getBrewModelData(BreweryApi.getBrew(item), containerVar));
-                        ((PotionMeta) meta).setColor(Color.fromRGB(255,255,255));
+                        //((PotionMeta) meta).setColor(Color.fromRGB(255,255,255));
                     }
                 } else {
                     player.sendMessage("Must use 'TANKARD' for brewery items");
