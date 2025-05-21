@@ -2,21 +2,10 @@ package com.mineshaft.mineshaftAHardcodedItemPort.manager;
 
 import com.dre.brewery.Brew;
 import com.dre.brewery.api.BreweryApi;
-import com.mineshaft.mineshaftAHardcodedItemPort.MineshaftItemPort;
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
 import de.tr7zw.nbtapi.NBT;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.profile.PlayerProfile;
-import org.bukkit.profile.PlayerTextures;
 
-import java.lang.reflect.Field;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.UUID;
 
 public class DrinkManager {
 
@@ -72,11 +61,13 @@ public class DrinkManager {
         return possibleContainers;
     }
 
-    public static ItemStack getPlacedDrink(Drinks drink, Container container) {
-        return getPlacedTankard(drink.getPlacedDrinks(), container);
-    }
+//    public static ItemStack getPlacedDrink(Drinks drink, Container container) {
+//        return getPlacedTankard(drink.getPlacedDrinks(), container);
+//    }
 
+/*
     public static ItemStack getPlacedTankard(PlaceableDrinks drink, Container container) {
+
         if(container.equals(Container.TANKARD)) {
             ItemStack is = new ItemStack(Material.PLAYER_HEAD);
             SkullMeta meta = (SkullMeta) is.getItemMeta();
@@ -128,6 +119,6 @@ public class DrinkManager {
         }
         return null;
     }
-
+*/
 
 }
