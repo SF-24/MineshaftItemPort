@@ -2,7 +2,7 @@ package com.mineshaft.mineshaftAHardcodedItemPort.manager;
 
 import com.dre.brewery.Brew;
 import com.dre.brewery.api.BreweryApi;
-import de.tr7zw.nbtapi.NBT;
+import de.tr7zw.changeme.nbtapi.NBT;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;

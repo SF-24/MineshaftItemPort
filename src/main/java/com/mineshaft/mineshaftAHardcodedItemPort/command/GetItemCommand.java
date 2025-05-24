@@ -4,7 +4,7 @@ import com.dre.brewery.api.BreweryApi;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.DrinkManager;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.Drinks;
-import de.tr7zw.nbtapi.NBT;
+import de.tr7zw.changeme.nbtapi.NBT;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;

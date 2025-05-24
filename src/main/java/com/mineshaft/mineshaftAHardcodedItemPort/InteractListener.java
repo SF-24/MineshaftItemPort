@@ -3,7 +3,7 @@ package com.mineshaft.mineshaftAHardcodedItemPort;
 import com.dre.brewery.api.events.brew.BrewModifyEvent;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.DrinkManager;
-import de.tr7zw.nbtapi.NBT;
+import de.tr7zw.changeme.nbtapi.NBT;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

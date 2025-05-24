@@ -4,7 +4,7 @@ import com.dre.brewery.api.BreweryApi;
 import com.dre.brewery.api.events.brew.BrewDrinkEvent;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.PlayerManager;
-import de.tr7zw.nbtapi.NBT;
+import de.tr7zw.changeme.nbtapi.NBT;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
