@@ -198,7 +198,7 @@ public class GetItemCommand implements CommandExecutor {
             if (args[0].equals("ent_draught")) {
                 item = (ItemDrink.getEntDraught(args[1]));
             } else if (args[0].equals("xl_food")) {
-                item = FoodItemXL.getFoodItemXL(args[1]).getFood();
+                item = FoodItemXL.getFoodItemXL(args[1]).getItem();
             }
             if(item!=null) {
                 if(args.length==3) {

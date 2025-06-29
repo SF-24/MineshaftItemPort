@@ -31,12 +31,16 @@ public class PlayerManager {
     }
 
     public static void removeOneItem(Player player, Material material) {
-        for (int i = 9; i <= 44; i++) {
+        for (int i = 0; i <= 44; i++) {
             if(player.getInventory().getItem(i)!=null) {
                 if (player.getInventory().getItem(i).getType().equals(material) && (player.getInventory().getItem(i).getItemMeta()==null || (!player.getInventory().getItem(i).getItemMeta().hasCustomModelData()))) {
                     ItemStack bottleStack = player.getInventory().getItem(i);
-                    bottleStack.setAmount(bottleStack.getAmount()-1);
-                    player.getInventory().setItem(i,bottleStack);
+                    if(bottleStack.getAmount()==1) {
+                        bottleStack.setType(Material.AIR);
+                    } else {
+                        bottleStack.setAmount(bottleStack.getAmount() - 1);
+                    }
+                    player.getInventory().setItem(i, bottleStack);
                     return;
                 }
             }

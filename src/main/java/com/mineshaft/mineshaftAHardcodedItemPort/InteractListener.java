@@ -42,7 +42,7 @@ public class InteractListener implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         // Removed: ||e.getItem().getType().equals(Material.SUSPICIOUS_STEW)||e.getItem().getType().equals(Material.MUSHROOM_STEW)||e.getItem().getType().equals(Material.RABBIT_STEW)||e.getItem().getType().equals(Material.BEETROOT_SOUP)
-        if(e.getItem()!=null && (e.getItem().getType().equals(Material.POTION)) && e.getItem().getData(DataComponentTypes.CONSUMABLE).consumeSeconds()!=1.0f) {
+        if(e.getItem()!=null && (e.getItem().getType().equals(Material.POTION)) && e.getItem().getData(DataComponentTypes.CONSUMABLE).consumeSeconds()>1.0f) {
             Consumable c = e.getItem().getData(DataComponentTypes.CONSUMABLE);
             assert c != null;
             float eatTime = 1.0f;

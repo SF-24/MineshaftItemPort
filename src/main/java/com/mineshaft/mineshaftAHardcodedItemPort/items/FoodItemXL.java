@@ -4,11 +4,30 @@ import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.ContainerUtil;
 import com.mineshaft.mineshaftapi.util.ItemUtil;
 import com.mineshaft.mineshaftapi.util.formatter.TextFormatter;
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
+import java.util.List;
 
 public enum FoodItemXL {
+
+    /**
+     * Missing items:
+     * chocolate cake
+     * chocolate cookie cake
+     * cheese cake
+     * nether cake
+     * strawberry cake
+     * pumpkin cake
+     * pizza
+     * all plants
+     * rock salt and rock salt ore (rock salt added separately)
+     * */
 
     /**
      * Default values:
@@ -128,6 +147,79 @@ public enum FoodItemXL {
     CHOCOLATE_DONUT(Material.APPLE,69,5),
     VANILLA_DONUT(Material.APPLE,70,5),
 
+    VANILLA_CUPCAKE(Material.APPLE, 71,2, Container.PAPER_CUP),
+    CHOCOLATE_CUPCAKE(Material.APPLE,72,3, Container.PAPER_CUP),
+    CHOCOLATE_COOKIE_CUPCAKE(Material.APPLE,73,5, Container.PAPER_CUP),
+    STRAWBERRY_CUPCAKE(Material.APPLE,74,3, Container.PAPER_CUP),
+
+    PIE_SHELL(Material.PUMPKIN_PIE,9,0,0),
+    APPLE_PIE(Material.PUMPKIN_PIE,1,8),
+    GOLDEN_APPLE_PIE(Material.PUMPKIN_PIE,8,8),
+    CHEESE_PIE(Material.PUMPKIN_PIE,2,8),
+    CHICKEN_POT_PIE(Material.PUMPKIN_PIE,5,8),
+    CHOCOLATE_PIE(Material.PUMPKIN_PIE,7,8),
+    BACON_PIE(Material.PUMPKIN_PIE,3,8),
+    FISH_PIE(Material.PUMPKIN_PIE,4,8),
+    STRAWBERRY_PIE(Material.PUMPKIN_PIE,5,8),
+
+    TOMATO_SAUCE(Material.APPLE,75,0,0),
+    HOT_SAUCE(Material.APPLE,76,0,0),
+    CHOCOLATE_SYRUP(Material.APPLE,77,0,0),
+    VANILLA_EXTRACT(Material.APPLE,78,0,0),
+    VANILLA_CREAM(Material.APPLE,79,0,0),
+
+    SPEEDY_ENERGY_DRINK(Material.POTION,6,0,0.05f, 1.0f, Container.CAN, List.of(
+            new PotionEffect(PotionEffectType.SPEED,500,0,false,false),
+            new PotionEffect(PotionEffectType.HASTE,500,2,false,false)
+    )),
+    HEALTHY_ENERGY_DRINK(Material.POTION,5,0,0.05f,1.0f, Container.CAN, List.of(
+            new PotionEffect(PotionEffectType.REGENERATION,600,0,false,false)
+    )),
+    STEALTHY_ENERGY_DRINK(Material.POTION,7,0,0.05f,1.0f, Container.CAN, List.of(
+            new PotionEffect(PotionEffectType.SPEED,2400,0,false,false),
+            new PotionEffect(PotionEffectType.NIGHT_VISION,2400,0,false,false),
+            new PotionEffect(PotionEffectType.INVISIBILITY,2400,0,false,false)
+    )),
+    STRONG_ENERGY_DRINK(Material.POTION,8,0,0.05f,1.0f, Container.CAN, List.of(
+            new PotionEffect(PotionEffectType.STRENGTH,2400,1,false,false),
+            new PotionEffect(PotionEffectType.FIRE_RESISTANCE,2400,1,false,false)
+            )),
+    DEADLY_ENERGY_DRINK(Material.POTION,4,0,0.05f,1.0f, Container.CAN,List.of(
+            new PotionEffect(PotionEffectType.POISON,1200,0,false,false)
+            )),
+    SUPER_ENERGY_DRINK(Material.POTION,9,0,0.05f,1.0f, Container.CAN, List.of(
+            new PotionEffect(PotionEffectType.SPEED,3600,2,false,false),
+            new PotionEffect(PotionEffectType.SPEED,3600,0,false,false),
+            new PotionEffect(PotionEffectType.SPEED,3600,0,false,false),
+            new PotionEffect(PotionEffectType.SPEED,3600,2,false,false),
+            new PotionEffect(PotionEffectType.SPEED,3600,0,false,false),
+            new PotionEffect(PotionEffectType.SPEED,3600,1,false,false),
+            new PotionEffect(PotionEffectType.SPEED,3600,1,false,false),
+            new PotionEffect(PotionEffectType.SPEED,3600,2,false,false)
+            )),
+
+    BEER(Material.POTION,10,1,0.2f,1.0f,Container.GLASS_MUG,List.of(
+            new PotionEffect(PotionEffectType.NAUSEA,100,1,false,false)
+    )),
+    COFFEE(Material.POTION, 19,1,0.2f,Container.COFFEE_CUP),
+    CAPUCCINO(Material.POTION,20,2,0.2f,Container.COFFEE_CUP),
+
+    // New 1.16.5 official mod items
+
+    LEMON(Material.APPLE, 80),
+    PINEAPPLE(Material.APPLE, 81),
+
+    LEMON_SYRUP(Material.POTION, 27,2,0.2f,1.0f),
+    STRAWBERRY_SYRUP(Material.POTION, 28,2,0.2f,1.0f),
+    PINEAPPLE_SYRUP(Material.POTION,29,2,0.2f,1.0f),
+
+    LEMON_JUICE(Material.POTION,21,2,0.2f,1.0f),
+    STRAWBERRY_JUICE(Material.POTION,22,2,0.2f,1.0f),
+    PINEAPPLE_JUICE(Material.POTION,23,2,0.2f,1.0f),
+    LEMON_SLUSHIE(Material.POTION,24,3,0.4f,1.0f),
+    STRAWBERRY_SLUSHIE(Material.POTION,25,3,0.4f,1.0f),
+    PINEAPPLE_SLUSHIE(Material.POTION,26,3,0.4f,1.0f),
+
     ;
 
     private final Material material;
@@ -135,7 +227,18 @@ public enum FoodItemXL {
     private final int nutrition;
     private final float saturation;
     private final float eatTimeSeconds;
+    private final List<PotionEffect> potionEffects;
     private Container container;
+
+    FoodItemXL(Material material, int customModelData, int nutrition, float saturation, float eatTimeSeconds, Container container, List<PotionEffect> potionEffectList) {
+        this.material=material;
+        this.customModelData=customModelData;
+        this.nutrition=nutrition;
+        this.saturation=saturation;
+        this.eatTimeSeconds=eatTimeSeconds;
+        this.container=container;
+        potionEffects = potionEffectList;
+    }
 
     FoodItemXL(Material material, int customModelData, int nutrition, float saturation, float eatTimeSeconds, Container container) {
         this.material=material;
@@ -144,6 +247,7 @@ public enum FoodItemXL {
         this.saturation=saturation;
         this.eatTimeSeconds=eatTimeSeconds;
         this.container=container;
+        potionEffects = List.of();
     }
 
     FoodItemXL(Material material, int customModelData, int nutrition, float saturation, Container container) {
@@ -153,6 +257,7 @@ public enum FoodItemXL {
         this.saturation=saturation;
         this.eatTimeSeconds=1.6f;
         this.container=container;
+        potionEffects = List.of();
     }
 
     FoodItemXL(Material material, int customModelData, int nutrition, float saturation, float eatTimeSeconds) {
@@ -162,6 +267,7 @@ public enum FoodItemXL {
         this.saturation=saturation;
         this.eatTimeSeconds=eatTimeSeconds;
         container=null;
+        potionEffects = List.of();
     }
 
     FoodItemXL(Material material, int customModelData, int nutrition, float saturation) {
@@ -171,6 +277,7 @@ public enum FoodItemXL {
         this.saturation=saturation;
         this.eatTimeSeconds=getDefaultEatTimeInSeconds();
         this.container=null;
+        potionEffects = List.of();
     }
 
     FoodItemXL(Material material, int customModelData, int nutrition, Container container) {
@@ -180,6 +287,7 @@ public enum FoodItemXL {
         this.saturation=0.6f;
         this.eatTimeSeconds=getDefaultEatTimeInSeconds();
         this.container=container;
+        potionEffects = List.of();
     }
 
     FoodItemXL(Material material, int customModelData, int nutrition) {
@@ -188,7 +296,8 @@ public enum FoodItemXL {
         this.nutrition=nutrition;
         this.saturation=0.6f;
         this.eatTimeSeconds=getDefaultEatTimeInSeconds();
-        this.container=null;
+        this.container=container;
+        this.potionEffects=List.of();
     }
 
     FoodItemXL(Material material, int customModelData) {
@@ -198,6 +307,7 @@ public enum FoodItemXL {
         this.saturation=0.6f;
         this.eatTimeSeconds=getDefaultEatTimeInSeconds();
         this.container=null;
+        potionEffects = List.of();
     }
 
     public Material getMaterial() {return material;}
@@ -209,21 +319,43 @@ public enum FoodItemXL {
         return 1.6f;
     }
 
-    public ItemStack getFood() {
+    public ItemStack getItem() {
+        return getItem(1);
+    }
+
+    public ItemStack getItem(int amount) {
         ItemStack xlItem = new ItemStack(material);
         ItemUtil.setDefaultData(xlItem, TextFormatter.capitaliseStringFully(this.name().toLowerCase().replace("_"," ")),customModelData);
         if(nutrition>0||saturation>0) {
-            ItemUtil.setDefaultFood(xlItem,nutrition,saturation,eatTimeSeconds,false,false);
+            if(container!=null) {
+                if (container.equals(Container.BOTTLE) || container.equals(Container.GLASS_MUG) || container.equals(Container.COFFEE_CUP) || container.equals(Container.TANKARD)) {
+                    ItemUtil.setDefaultFood(xlItem, nutrition, saturation, eatTimeSeconds, true, true);
+                } else {
+                    ItemUtil.setDefaultFood(xlItem, nutrition, saturation, eatTimeSeconds, false, false);
+                }
+            }
+
+            if(material.equals(Material.POTION)) {
+                PotionMeta meta = (PotionMeta) xlItem.getItemMeta();
+                for(PotionEffect potionEffect : potionEffects) {
+                    meta.addCustomEffect(potionEffect,true);
+                }
+                xlItem.setItemMeta(meta);
+            }
+
             // Set container
             if(container!=null) {
                 ContainerUtil.setContainer(xlItem, container);
             }
+        } else {
+            xlItem.unsetData(DataComponentTypes.CONSUMABLE);
         }
         if(material.equals(Material.SUSPICIOUS_STEW)||material.equals(Material.RABBIT_STEW)||material.equals(Material.MUSHROOM_STEW)||material.equals(Material.BEETROOT_SEEDS)) {
             ItemMeta meta = xlItem.getItemMeta();
             meta.setMaxStackSize(8);
             xlItem.setItemMeta(meta);
         }
+        xlItem.setAmount(amount);
         return xlItem;
     }
 
