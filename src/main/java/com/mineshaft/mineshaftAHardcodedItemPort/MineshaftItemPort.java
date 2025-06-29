@@ -3,6 +3,7 @@ package com.mineshaft.mineshaftAHardcodedItemPort;
 import com.mineshaft.mineshaftAHardcodedItemPort.command.GetItemCommand;
 import com.mineshaft.mineshaftAHardcodedItemPort.command.GetItemTabCompleter;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.ConfigManager;
+import com.mineshaft.mineshaftAHardcodedItemPort.manager.ItemRegisterXL;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,6 +20,8 @@ public final class MineshaftItemPort extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new FoodListener(), this);
         Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
         configManager.setupConfig();
+
+        ItemRegisterXL.register();
     }
 
     public static MineshaftItemPort getInstance() {

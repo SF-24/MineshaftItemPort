@@ -1,10 +1,14 @@
 package com.mineshaft.mineshaftAHardcodedItemPort.command;
 
 import com.dre.brewery.api.BreweryApi;
-import com.mineshaft.mineshaftAHardcodedItemPort.manager.Container;
-import com.mineshaft.mineshaftAHardcodedItemPort.manager.DrinkManager;
-import com.mineshaft.mineshaftAHardcodedItemPort.manager.Drinks;
-import de.tr7zw.changeme.nbtapi.NBT;
+import com.mineshaft.mineshaftAHardcodedItemPort.items.ItemDrink;
+import com.mineshaft.mineshaftAHardcodedItemPort.items.FoodItemXL;
+import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
+import com.mineshaft.mineshaftAHardcodedItemPort.manager.drinks.DrinkManager;
+import com.mineshaft.mineshaftAHardcodedItemPort.manager.drinks.Drinks;
+import com.mineshaft.mineshaftapi.nbtapi.NBT;
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.Consumable;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -20,8 +24,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class GetItemCommand implements CommandExecutor {
     @Override
@@ -97,6 +99,9 @@ public class GetItemCommand implements CommandExecutor {
             int modelData=drink.getContainerModelData(container);
 
             switch(container) {
+                case BOWL:
+                    item=new ItemStack(Material.SUSPICIOUS_STEW);
+                    break;
                 case TANKARD, BOTTLE:
                     item=new ItemStack(Material.POTION);
                     PotionMeta meta1 = (PotionMeta) item.getItemMeta();
@@ -155,7 +160,7 @@ public class GetItemCommand implements CommandExecutor {
                     case BOWL:
                         // if it is a bowl
                         SuspiciousStewMeta suspiciousStewMeta = (SuspiciousStewMeta) item.getItemMeta();
-                        for (PotionEffect effect : potionEffects) {
+                        for (PotionEffect effect : potionEffects) {;
                             suspiciousStewMeta.addCustomEffect(effect, true);
                         }
                         suspiciousStewMeta.setCustomModelData(modelData);
@@ -178,68 +183,36 @@ public class GetItemCommand implements CommandExecutor {
                 nbt.setString("Container", finalContainer.name().toLowerCase());
             });
 
+            Consumable c = item.getData(DataComponentTypes.CONSUMABLE);
+            assert c != null;
+            float eatTime = 1.0f;
+            Consumable c1 = Consumable.consumable().consumeSeconds(eatTime).animation(c.animation()).addEffects(c.consumeEffects()).hasConsumeParticles(c.hasConsumeParticles()).sound(c.sound()).build();
+            item.setData(DataComponentTypes.CONSUMABLE, c1);
+
+
             player.getInventory().addItem(item);
         }
 
-        if(args.length==2) {
-            if(args[0].equals("ent_draught")) {
-                ItemStack entDrink = new ItemStack(Material.SUSPICIOUS_STEW);
-                SuspiciousStewMeta entDrinkMeta = (SuspiciousStewMeta) entDrink.getItemMeta();
-                entDrinkMeta.setDisplayName(ChatColor.WHITE + args[1].substring(0,1).toUpperCase() + args[1].substring(1) + " Ent Draught");
-
-                switch(args[1]) {
-                    case "blue":
-                        entDrinkMeta.addCustomEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 3000, 0, false, false, true),false);
-                        entDrinkMeta.setCustomModelData(3);
-                        entDrinkMeta.setLore(List.of(ChatColor.GRAY + "Used by divers... if they can afford it"));
-                        break;
-                    case "silver":
-                        entDrinkMeta.addCustomEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 3600, 0, false, false, true),false);
-                        entDrinkMeta.setCustomModelData(4);
-                        entDrinkMeta.setLore(Collections.singletonList(ChatColor.GRAY + "Has carrots, for better night vision."));
-                        break;
-                    case "yellow":
-                        entDrinkMeta.addCustomEffect(new PotionEffect(PotionEffectType.REGENERATION, 1200, 0, false, false, true),false);
-                        entDrinkMeta.setCustomModelData(5);
-                        entDrinkMeta.setLore(Collections.singletonList(ChatColor.GRAY + "Has mysterious healing properties..."));
-                        break;
-                    case "brown":
-                        entDrinkMeta.setCustomModelData(6);
-                        entDrinkMeta.setLore(Collections.singletonList(ChatColor.GRAY + "A hearty meal..."));
-                        break;
-                    case "red":
-                        entDrinkMeta.addCustomEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 3600, 0, false, false, true),false);
-                        entDrinkMeta.setCustomModelData(7);
-                        entDrinkMeta.setLore(Collections.singletonList(ChatColor.GRAY + "Said to put out any flames near the drinker."));
-                        break;
-                    case "gold":
-                        entDrinkMeta.setCustomModelData(8);
-                        entDrinkMeta.setLore(Collections.singletonList(ChatColor.GRAY + "Drunk by ents going into combat..."));
-                        break;
-                    case "green":
-                        entDrinkMeta.addCustomEffect(new PotionEffect(PotionEffectType.SPEED, 2400, 1, false, false, true),false);
-                        entDrinkMeta.setCustomModelData(9);
-                        entDrinkMeta.setLore(Collections.singletonList(ChatColor.GRAY + "Said to give the drinker a burst of speed."));
-
-                        break;
-                    case "purple":
-                        entDrinkMeta.setLore(Collections.singletonList(ChatColor.GRAY + "Has even more mysterious healing properties..."));
-                        entDrinkMeta.setCustomModelData(10);
-                        break;
-                    default:
-                        break;
+        if(args.length==2 || args.length==3) {
+            ItemStack item = null;
+            if (args[0].equals("ent_draught")) {
+                item = (ItemDrink.getEntDraught(args[1]));
+            } else if (args[0].equals("xl_food")) {
+                item = FoodItemXL.getFoodItemXL(args[1]).getFood();
+            }
+            if(item!=null) {
+                if(args.length==3) {
+                    try {
+                        item.setAmount(Integer.parseInt(args[2]));
+                    } catch (NumberFormatException ignored) {
+                        player.sendMessage(ChatColor.RED + "Invalid amount!");
+                    }
                 }
-                entDrink.setItemMeta(entDrinkMeta);
-                NBT.modify(entDrink, nbt -> {
-                    nbt.setString("Potion", "EntDraught_" + args[1]);
-                });
-                player.getInventory().addItem(entDrink);
-
-            } else if(args[0].equals("teleport_scroll")) {
-                // TODO:
+                player.getInventory().addItem(item);
+            } else {
+                player.sendMessage(ChatColor.RED + "Invalid item!");
             }
         }
-
         return false;
     }
 }

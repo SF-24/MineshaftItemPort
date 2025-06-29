@@ -4,6 +4,7 @@ main: com.mineshaft.mineshaftAHardcodedItemPort.MineshaftItemPort
 api-version: '1.20'
 prefix: "[MineshaftItemPort]"
 authors: [Mineshaft]
+dependencies: [MineshaftApi, BreweryX]
 description: A port of items from the old "Another Rpg Plugin"
 website: github.com/SF-24
 commands:

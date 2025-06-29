@@ -1,4 +1,4 @@
-package com.mineshaft.mineshaftAHardcodedItemPort.manager;
+package com.mineshaft.mineshaftAHardcodedItemPort.manager.container;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -9,8 +9,14 @@ public enum Container {
 
     NULL(Material.AIR, -1, null),
     BOWL(Material.BOWL, 0, null),
+    CERAMIC_BOWL(Material.BOWL, 5, "Bowl"),
+    COFFEE_CUP(Material.GLASS_BOTTLE, 1, "Coffee Cup"),
+    PAPER_CUP(Material.GLASS_BOTTLE, 2, "Paper Cup"),
+    GLASS_MUG(Material.GLASS_BOTTLE, 3, "Glass Mug"),
+    CAN(Material.GLASS_BOTTLE, 4, "Can"),
     BOTTLE(Material.GLASS_BOTTLE, 0, null),
     TANKARD(Material.GLASS_BOTTLE, 13, "Tankard"),
+    BUCKET(Material.BUCKET, 0, null),
     ;
     private final String name;
     private final int modelData;
@@ -38,5 +44,7 @@ public enum Container {
         return item;
 
     }
+
+    public Material getMaterial() {return material;}
 
 }

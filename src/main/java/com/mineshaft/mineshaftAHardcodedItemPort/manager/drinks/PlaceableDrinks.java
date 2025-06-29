@@ -1,4 +1,4 @@
-package com.mineshaft.mineshaftAHardcodedItemPort.manager;
+package com.mineshaft.mineshaftAHardcodedItemPort.manager.drinks;
 
 public enum PlaceableDrinks {
 

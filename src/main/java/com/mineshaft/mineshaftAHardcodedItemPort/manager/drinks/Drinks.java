@@ -1,4 +1,6 @@
-package com.mineshaft.mineshaftAHardcodedItemPort.manager;
+package com.mineshaft.mineshaftAHardcodedItemPort.manager.drinks;
+
+import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 
 public enum Drinks {
 

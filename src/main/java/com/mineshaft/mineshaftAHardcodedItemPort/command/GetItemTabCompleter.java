@@ -1,10 +1,8 @@
 package com.mineshaft.mineshaftAHardcodedItemPort.command;
 
-import com.dre.brewery.BreweryPlugin;
-import com.dre.brewery.api.BreweryApi;
-import com.dre.brewery.integration.item.BreweryPluginItem;
-import com.mineshaft.mineshaftAHardcodedItemPort.manager.Container;
-import com.mineshaft.mineshaftAHardcodedItemPort.manager.DrinkManager;
+import com.mineshaft.mineshaftAHardcodedItemPort.items.FoodItemXL;
+import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
+import com.mineshaft.mineshaftAHardcodedItemPort.manager.drinks.DrinkManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -17,9 +15,15 @@ public class GetItemTabCompleter implements TabCompleter {
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
 
         if(args.length==1) {
-            return StringUtil.copyPartialMatches(args[0], Arrays.asList("ale","athelas","miruvor","ent_draught","orc_draught","teleport_scroll","make_container"),new ArrayList<>());
+            return StringUtil.copyPartialMatches(args[0], Arrays.asList("ale","athelas","miruvor","ent_draught","orc_draught","teleport_scroll","make_container","xl_food"),new ArrayList<>());
         } else if(args.length==2 && args[0].equals("ent_draught")) {
             return StringUtil.copyPartialMatches(args[1], Arrays.asList("blue","silver","yellow","brown","red","gold","green","purple"),new ArrayList<>());
+        } else if(args.length==2 && args[0].equals("xl_food")) {
+            ArrayList<String> itemList = new ArrayList<>();
+            for(FoodItemXL foodItemXL: FoodItemXL.values()) {
+                itemList.add(foodItemXL.name().toLowerCase());
+            }
+            return StringUtil.copyPartialMatches(args[1], itemList,new ArrayList<>());
         } else if(args.length==2 && DrinkManager.isDrink(args[0])) {
             return StringUtil.copyPartialMatches(args[1], DrinkManager.getPossibleContainers(Objects.requireNonNull(DrinkManager.getDrink(Objects.requireNonNullElse(args[0], "")))), new ArrayList<>());
         } else if(args.length==2 && args[0].equals("make_container")) {

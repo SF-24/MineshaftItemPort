@@ -40,14 +40,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>de.tr7zw.changeme.nbtapi</pattern>
-                            <shadedPattern>com.mineshaft.mineshaftAHardcodedItemPort.nbtapi</shadedPattern>
-                        </relocation>
-                    </relocations>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>ca.bkaw</groupId>
@@ -111,15 +103,15 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>de.tr7zw</groupId>
-            <artifactId>item-nbt-api</artifactId>
-            <version>2.15.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>com.dre.brewery</groupId>
             <artifactId>BreweryX</artifactId>
             <version>3.4.10</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mineshaft</groupId>
+            <artifactId>mineshaft-api</artifactId>
+            <version>1.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

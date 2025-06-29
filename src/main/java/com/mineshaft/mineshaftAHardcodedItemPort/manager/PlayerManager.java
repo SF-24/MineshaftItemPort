@@ -30,10 +30,10 @@ public class PlayerManager {
         return getEmptyInventorySlots(player)>0;
     }
 
-    public static void removeOneGlassBottle(Player player) {
+    public static void removeOneItem(Player player, Material material) {
         for (int i = 9; i <= 44; i++) {
             if(player.getInventory().getItem(i)!=null) {
-                if (player.getInventory().getItem(i).getType().equals(Material.GLASS_BOTTLE) && (player.getInventory().getItem(i).getItemMeta()==null || (!player.getInventory().getItem(i).getItemMeta().hasCustomModelData()))) {
+                if (player.getInventory().getItem(i).getType().equals(material) && (player.getInventory().getItem(i).getItemMeta()==null || (!player.getInventory().getItem(i).getItemMeta().hasCustomModelData()))) {
                     ItemStack bottleStack = player.getInventory().getItem(i);
                     bottleStack.setAmount(bottleStack.getAmount()-1);
                     player.getInventory().setItem(i,bottleStack);
@@ -42,4 +42,5 @@ public class PlayerManager {
             }
         }
     }
+
 }

@@ -2,9 +2,9 @@ package com.mineshaft.mineshaftAHardcodedItemPort;
 
 import com.dre.brewery.api.BreweryApi;
 import com.dre.brewery.api.events.brew.BrewDrinkEvent;
-import com.mineshaft.mineshaftAHardcodedItemPort.manager.Container;
+import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.PlayerManager;
-import de.tr7zw.changeme.nbtapi.NBT;
+import com.mineshaft.mineshaftapi.nbtapi.NBT;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,14 +22,16 @@ public class FoodListener implements Listener {
         if (e.getItem().getType().equals(Material.SUSPICIOUS_STEW) || e.getItem().getType().equals(Material.POTION)) {
             e.setCancelled(true);
 
-
+            // Get properties
             NBT.get(e.getItem(), nbt -> {
 
+                // If is brewery brew
                 if(BreweryApi.isBrew(e.getItem())) {
                     e.setCancelled(false);
                     return;
                 }
 
+                // Get container
                 String strContainer = nbt.getString("Container");
                 Container container = Container.NULL;
                 for(Container c : Container.values()) {
@@ -38,8 +40,6 @@ public class FoodListener implements Listener {
                     }
                 }
 
-                
-
                 if(container.equals(Container.NULL)) {
                     e.setCancelled(false);
                     return;
@@ -47,7 +47,8 @@ public class FoodListener implements Listener {
 
                 System.out.println("container: " + container);
 
-                if(container.equals(Container.TANKARD)) {
+                // if is valid:
+                if(!container.equals(Container.BOWL) && !container.equals(Container.BOTTLE)) {
                     ItemStack dropItem = container.getItem();
                     if (e.getItem().getAmount() > 1 && !BreweryApi.isBrew(e.getItem())) {
                         // Give the player the container item
@@ -57,12 +58,12 @@ public class FoodListener implements Listener {
                             e.getPlayer().getWorld().dropItem(e.getPlayer().getLocation(), dropItem);
                         }
 
-                        // Remove the glass bottle
+
+                        // Remove the glass bottle or bowl, depending on the item
+                        Container finalContainer = container;
                         MineshaftItemPort.getInstance().getServer().getScheduler().runTaskLaterAsynchronously(MineshaftItemPort.getInstance(), () -> {
-                            PlayerManager.removeOneGlassBottle(e.getPlayer());
+                            PlayerManager.removeOneItem(e.getPlayer(), finalContainer.getMaterial());
                         }, 1 / 40);
-
-
                     } else {
                         // Set hand item after drinking
 

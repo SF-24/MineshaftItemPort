@@ -1,8 +1,10 @@
-package com.mineshaft.mineshaftAHardcodedItemPort.manager;
+package com.mineshaft.mineshaftAHardcodedItemPort.manager.drinks;
 
 import com.dre.brewery.Brew;
 import com.dre.brewery.api.BreweryApi;
-import de.tr7zw.changeme.nbtapi.NBT;
+import com.mineshaft.mineshaftAHardcodedItemPort.manager.ConfigBridge;
+import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
+import com.mineshaft.mineshaftapi.nbtapi.NBT;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;

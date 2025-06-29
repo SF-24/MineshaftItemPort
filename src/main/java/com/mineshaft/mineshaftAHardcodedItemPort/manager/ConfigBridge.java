@@ -1,6 +1,7 @@
 package com.mineshaft.mineshaftAHardcodedItemPort.manager;
 
 import com.mineshaft.mineshaftAHardcodedItemPort.MineshaftItemPort;
+import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 import org.bukkit.configuration.Configuration;
 
 public class ConfigBridge {
