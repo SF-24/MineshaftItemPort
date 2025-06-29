@@ -202,7 +202,7 @@ public enum FoodItemXL {
             new PotionEffect(PotionEffectType.NAUSEA,100,1,false,false)
     )),
     COFFEE(Material.POTION, 19,1,0.2f,Container.COFFEE_CUP),
-    CAPUCCINO(Material.POTION,20,2,0.2f,Container.COFFEE_CUP),
+    CAPPUCCINO(Material.POTION,20,2,0.2f,Container.COFFEE_CUP),
 
     // New 1.16.5 official mod items
 

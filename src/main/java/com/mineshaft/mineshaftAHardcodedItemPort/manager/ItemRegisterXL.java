@@ -162,7 +162,7 @@ public class ItemRegisterXL {
         ));
 
         RecipeRegistrar.registerCraftingRecipeComplex(SAUSAGE_ROLL.getItem(), List.of(
-            COOKED_DOUGH.getItem(), SAUSAGE_ROLL.getItem(), COOKED_DOUGH.getItem()
+            COOKED_DOUGH.getItem(), SAUSAGE.getItem(), COOKED_DOUGH.getItem()
         ), CraftingBookCategory.MISC, true, 1, 3);
 
         RecipeRegistrar.registerCraftingRecipeComplex(JAMBON_BEURRE.getItem(), List.of(
@@ -190,8 +190,8 @@ public class ItemRegisterXL {
         ), CraftingBookCategory.MISC, true, 3, 3);
 
         RecipeRegistrar.registerCraftingRecipeComplex(SAUSAGE.getItem(3), List.of(
-                getItemStack(Material.AIR), getItemStack(Material.AIR), getItemStack(Material.PORKCHOP),
-                getItemStack(Material.AIR), getItemStack(Material.PORKCHOP), getItemStack(Material.AIR),
+                getItemStack(Material.AIR), getItemStack(Material.AIR), getItemStack(Material.COOKED_PORKCHOP),
+                getItemStack(Material.AIR), getItemStack(Material.COOKED_PORKCHOP), getItemStack(Material.AIR),
                 getItemStack(Material.COOKED_PORKCHOP), getItemStack(Material.AIR), getItemStack(Material.AIR)
         ), CraftingBookCategory.MISC, true, 3, 3);
 
@@ -288,9 +288,21 @@ public class ItemRegisterXL {
             TORTILLA.getItem(), LETTUCE.getItem(), ONION.getItem(), TOMATO.getItem(), GROUND_BEEF.getItem()
         ));
 
+        //
+        // SANDWICHES
+        //
 
 
 
+        //
+        // SUSHI
+        //
+
+        //
+        // SALADS
+        //
+
+        // TODO: Add remaining recipes
 
 
     }
