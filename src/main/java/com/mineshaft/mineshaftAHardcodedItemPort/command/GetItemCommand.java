@@ -160,7 +160,7 @@ public class GetItemCommand implements CommandExecutor {
                     case BOWL:
                         // if it is a bowl
                         SuspiciousStewMeta suspiciousStewMeta = (SuspiciousStewMeta) item.getItemMeta();
-                        for (PotionEffect effect : potionEffects) {;
+                        for (PotionEffect effect : potionEffects) {
                             suspiciousStewMeta.addCustomEffect(effect, true);
                         }
                         suspiciousStewMeta.setCustomModelData(modelData);
