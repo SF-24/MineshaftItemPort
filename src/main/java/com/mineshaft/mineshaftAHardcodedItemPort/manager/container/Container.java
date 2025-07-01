@@ -9,7 +9,7 @@ public enum Container {
 
     NULL(Material.AIR, -1, null),
     BOWL(Material.BOWL, 0, null),
-    CERAMIC_BOWL(Material.BOWL, 5, "Bowl"),
+    SALAD_BOWL(Material.BOWL, 5, "Bowl"),
     COFFEE_CUP(Material.GLASS_BOTTLE, 1, "Coffee Cup"),
     PAPER_CUP(Material.GLASS_BOTTLE, 2, "Paper Cup"),
     GLASS_MUG(Material.GLASS_BOTTLE, 3, "Glass Mug"),
@@ -28,7 +28,7 @@ public enum Container {
         this.name=name;
     }
 
-    public ItemStack getItem() {
+    public ItemStack getItem(int amount) {
         ItemStack item = new ItemStack(material);
         if(modelData>=0 || name!=null) {
             ItemMeta meta = item.getItemMeta();
@@ -41,8 +41,12 @@ public enum Container {
             }
             item.setItemMeta(meta);
         }
+        item.setAmount(amount);
         return item;
+    }
 
+    public ItemStack getItem() {
+        return getItem(1);
     }
 
     public Material getMaterial() {return material;}
