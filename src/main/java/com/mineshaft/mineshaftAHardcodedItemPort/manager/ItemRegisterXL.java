@@ -6,7 +6,6 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.recipe.CraftingBookCategory;
 
-import java.awt.image.ColorConvertOp;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,6 +14,18 @@ import static com.mineshaft.mineshaftAHardcodedItemPort.items.FoodItemXL.*;
 public class ItemRegisterXL {
 
     public static void register() {
+
+        //
+        // BASIC RECIPES
+        //
+
+        // Resin clumps are replaced with rock salt
+        MineshaftItemPort.getRecipeRegistrar().registerFurnaceRecipeSimpleFood(getItemStack(Material.WATER_BUCKET),getItemStack(Material.RESIN_CLUMP));
+
+        // TODO: VANILLA FLOWERS
+
+        // Vanilla Cream
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(VANILLA_CREAM.getItem(), List.of(VANILLA_EXTRACT.getItem(),getItemStack(Material.SUGAR),getItemStack(Material.SUGAR)));
 
         //
         // Rice, Pepper, Corn, Cucumber, Lettuce, Onion, Tomato & Strawberry recipes:
@@ -143,7 +154,7 @@ public class ItemRegisterXL {
         ));
 
         MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(VANILLA_DONUT.getItem(), List.of(
-                VANILLA_EXTRACT.getItem(), DONUT.getItem()
+                VANILLA_CREAM.getItem(), DONUT.getItem()
         ));
 
         //
@@ -433,7 +444,7 @@ public class ItemRegisterXL {
         ),CraftingBookCategory.MISC,true,3,3);
 
         MineshaftItemPort.getRecipeRegistrar().registerCraftingRecipeComplex(VANILLA_COOKIE.getItem(),List.of(
-                COOKED_DOUGH.getItem(),VANILLA_EXTRACT.getItem(),COOKED_DOUGH.getItem(),
+                COOKED_DOUGH.getItem(),VANILLA_CREAM.getItem(),COOKED_DOUGH.getItem(),
                 getNullItem(),COOKED_DOUGH.getItem(),getNullItem()
         ),CraftingBookCategory.MISC,true,3,2);
 
@@ -452,7 +463,7 @@ public class ItemRegisterXL {
         ),CraftingBookCategory.MISC,true,3,3);
 
         MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(VANILLA_ICE_CREAM_BALL.getItem(), List.of(
-                getItemStack(Material.SNOWBALL),getItemStack(Material.MILK_BUCKET), VANILLA_EXTRACT.getItem()
+                getItemStack(Material.SNOWBALL),getItemStack(Material.MILK_BUCKET), VANILLA_CREAM.getItem()
         ));
 
         MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(STRAWBERRY_ICE_CREAM_BALL.getItem(), List.of(
@@ -460,7 +471,7 @@ public class ItemRegisterXL {
         ));
 
         MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(CHOCOLATE_ICE_CREAM_BALL.getItem(), List.of(
-                getItemStack(Material.SNOWBALL),getItemStack(Material.MILK_BUCKET),getItemStack(Material.COCOA_BEANS), VANILLA_EXTRACT.getItem()
+                getItemStack(Material.SNOWBALL),getItemStack(Material.MILK_BUCKET),getItemStack(Material.COCOA_BEANS), VANILLA_CREAM.getItem()
         ));
 
         MineshaftItemPort.getRecipeRegistrar().registerCraftingRecipeComplex(ICE_CREAM_CONE.getItem(),List.of(
@@ -491,7 +502,7 @@ public class ItemRegisterXL {
         ),CraftingBookCategory.MISC,true,3,2);
 
         MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(VANILLA_CUPCAKE.getItem(), List.of(
-                Container.PAPER_CUP.getItem(),COOKED_DOUGH.getItem(),VANILLA_EXTRACT.getItem()
+                Container.PAPER_CUP.getItem(),COOKED_DOUGH.getItem(),VANILLA_CREAM.getItem()
         ));
 
         MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(CHOCOLATE_CUPCAKE.getItem(), List.of(
@@ -510,7 +521,107 @@ public class ItemRegisterXL {
         // PIES AND CAKES
         //
 
+        MineshaftItemPort.getRecipeRegistrar().registerCraftingRecipeComplex(PIE_SHELL.getItem(), List.of(
+                COOKED_DOUGH.getItem(), getNullItem(), COOKED_DOUGH.getItem(),
+                COOKED_DOUGH.getItem(), COOKED_DOUGH.getItem(), COOKED_DOUGH.getItem()
+        ), CraftingBookCategory.MISC, true, 3, 2);
 
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(APPLE_PIE.getItem(), List.of(
+                PIE_SHELL.getItem(), getItemStack(Material.APPLE)
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(GOLDEN_APPLE_PIE.getItem(), List.of(
+                PIE_SHELL.getItem(), getItemStack(Material.GOLDEN_APPLE)
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(CHEESE_PIE.getItem(), List.of(
+                PIE_SHELL.getItem(), CHEESE.getItem()
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(CHICKEN_POT_PIE.getItem(), List.of(
+                PIE_SHELL.getItem(), getItemStack(Material.COOKED_CHICKEN)
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(CHOCOLATE_PIE.getItem(), List.of(
+                PIE_SHELL.getItem(), CHOCOLATE.getItem(), CHOCOLATE_SYRUP.getItem()
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(BACON_PIE.getItem(), List.of(
+                PIE_SHELL.getItem(), BACON.getItem()
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(FISH_PIE.getItem(), List.of(
+                PIE_SHELL.getItem(), getItemStack(Material.COOKED_COD)
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(STRAWBERRY_PIE.getItem(), List.of(
+                PIE_SHELL.getItem(), STRAWBERRY.getItem()
+        ));
+
+        // temp recipe, until whole pizzas are added
+        MineshaftItemPort.getRecipeRegistrar().registerCraftingRecipeComplex(SLICE_OF_PIZZA.getItem(4), List.of(
+                COOKED_DOUGH.getItem(), COOKED_DOUGH.getItem(), COOKED_DOUGH.getItem(),
+                COOKED_DOUGH.getItem(), CHEESE.getItem(), COOKED_DOUGH.getItem(),
+                COOKED_DOUGH.getItem(), COOKED_DOUGH.getItem(), COOKED_DOUGH.getItem()
+        ), CraftingBookCategory.MISC, true, 3, 3);
+
+        //
+        // DRINKS
+        //
+
+        MineshaftItemPort.getRecipeRegistrar().registerCraftingRecipeSimple(Container.CAN.getItem(2), List.of(
+                Material.IRON_INGOT, Material.AIR, Material.IRON_INGOT,
+                Material.IRON_INGOT, Material.AIR, Material.IRON_INGOT,
+                Material.IRON_INGOT, Material.AIR, Material.IRON_INGOT
+        ),CraftingBookCategory.MISC, true, 3, 3);
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(SPEEDY_ENERGY_DRINK.getItem(), List.of(
+                Container.CAN.getItem(), getItemStack(Material.SUGAR), RICE.getItem(), getItemStack(Material.WATER_BUCKET)
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(HEALTHY_ENERGY_DRINK.getItem(), List.of(
+                Container.CAN.getItem(), getItemStack(Material.GHAST_TEAR), RICE.getItem(), getItemStack(Material.WATER_BUCKET), getItemStack(Material.GLISTERING_MELON_SLICE)
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(STEALTHY_ENERGY_DRINK.getItem(), List.of(
+                Container.CAN.getItem(), getItemStack(Material.SUGAR), RICE.getItem(), getItemStack(Material.WATER_BUCKET), getItemStack(Material.GOLDEN_CARROT)
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(STRONG_ENERGY_DRINK.getItem(), List.of(
+                Container.CAN.getItem(), getItemStack(Material.MAGMA_CREAM), RICE.getItem(), getItemStack(Material.WATER_BUCKET), getItemStack(Material.BLAZE_POWDER)
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(DEADLY_ENERGY_DRINK.getItem(), List.of(
+                Container.CAN.getItem(), getItemStack(Material.FERMENTED_SPIDER_EYE), RICE.getItem(), getItemStack(Material.WATER_BUCKET), getItemStack(Material.SPIDER_EYE)
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(SUPER_ENERGY_DRINK.getItem(), List.of(
+                getItemStack(Material.DIAMOND), STEALTHY_ENERGY_DRINK.getItem(), STRONG_ENERGY_DRINK.getItem(), SPEEDY_ENERGY_DRINK.getItem(), HEALTHY_ENERGY_DRINK.getItem()
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerCraftingRecipeSimple(Container.GLASS_MUG.getItem(2), List.of(
+                Material.GLASS, Material.GLASS, Material.AIR,
+                Material.GLASS, Material.GLASS, Material.GLASS,
+                Material.GLASS, Material.GLASS, Material.AIR
+        ), CraftingBookCategory.MISC, true, 3, 3);
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(BEER.getItem(), List.of(
+                RICE.getItem(), getItemStack(Material.FERMENTED_SPIDER_EYE), Container.GLASS_MUG.getItem()
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerCraftingRecipeSimple(Container.COFFEE_CUP.getItem(), List.of(
+                Material.IRON_INGOT, Material.IRON_INGOT, Material.AIR,
+                Material.IRON_INGOT, Material.IRON_INGOT, Material.STICK,
+                Material.IRON_INGOT, Material.IRON_INGOT, Material.AIR
+        ), CraftingBookCategory.MISC, true, 3, 3);
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(COFFEE.getItem(), List.of(
+                Container.COFFEE_CUP.getItem(), getItemStack(Material.COCOA_BEANS)
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(CAPPUCCINO.getItem(), List.of(
+                COFFEE.getItem(), getItemStack(Material.MILK_BUCKET)
+        ));
 
         // TODO: Add remaining recipes
 
