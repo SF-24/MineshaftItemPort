@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class MineshaftItemPort extends JavaPlugin {
 
     @Getter
-    private static final RecipeRegistrar recipeRegistrar = new RecipeRegistrar("mineshaft_item_port");
+    private static RecipeRegistrar recipeRegistrar = new RecipeRegistrar("mineshaftitemport");
     @Getter
     private final ConfigManager configManager = new ConfigManager();
 

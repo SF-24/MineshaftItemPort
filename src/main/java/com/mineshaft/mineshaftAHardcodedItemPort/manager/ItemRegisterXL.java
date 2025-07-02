@@ -458,7 +458,7 @@ public class ItemRegisterXL {
 
         MineshaftItemPort.getRecipeRegistrar().registerCraftingRecipeComplex(CHOCOLATE.getItem(), List.of(
                 CHOCOLATE_SYRUP.getItem(),CHOCOLATE_SYRUP.getItem(),CHOCOLATE_SYRUP.getItem(),
-                CHOCOLATE_SYRUP.getItem(),getItemStack(Material.COCOA),CHOCOLATE_SYRUP.getItem(),
+                CHOCOLATE_SYRUP.getItem(),getItemStack(Material.COCOA_BEANS),CHOCOLATE_SYRUP.getItem(),
                 CHOCOLATE_SYRUP.getItem(),CHOCOLATE_SYRUP.getItem(),CHOCOLATE_SYRUP.getItem()
         ),CraftingBookCategory.MISC,true,3,3);
 
