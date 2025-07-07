@@ -411,11 +411,11 @@ public class ItemRegisterXL {
                 getItemStack(Material.POTATO), getItemStack(Material.CARROT), CUCUMBER.getItem(), PEPPER.getItem(), ONION.getItem(), TOMATO.getItem(), Container.SALAD_BOWL.getItem()
         ));
 
-        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(VEGETABLE_SOUP.getItem(), List.of(
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(CHICKEN_SOUP.getItem(), List.of(
                 getItemStack(Material.CARROT), getItemStack(Material.COOKED_CHICKEN), Container.SALAD_BOWL.getItem()
         ));
 
-        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(VEGETABLE_SOUP.getItem(), List.of(
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(BEEF_STEW.getItem(), List.of(
                 getItemStack(Material.CARROT), getItemStack(Material.COOKED_BEEF), ONION.getItem(), Container.SALAD_BOWL.getItem()
         ));
 
