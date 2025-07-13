@@ -1,16 +1,13 @@
 package com.mineshaft.mineshaftAHardcodedItemPort.command;
 
 import com.dre.brewery.api.BreweryApi;
-import com.mineshaft.mineshaftAHardcodedItemPort.items.ItemDrink;
+import com.mineshaft.mineshaftAHardcodedItemPort.items.CurrencyItem;
 import com.mineshaft.mineshaftAHardcodedItemPort.items.FoodItemXL;
+import com.mineshaft.mineshaftAHardcodedItemPort.items.ItemLotr;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.drinks.DrinkManager;
-import com.mineshaft.mineshaftAHardcodedItemPort.manager.drinks.Drinks;
 import com.mineshaft.mineshaftapi.nbtapi.NBT;
-import io.papermc.paper.datacomponent.DataComponentTypes;
-import io.papermc.paper.datacomponent.item.Consumable;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,11 +16,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.inventory.meta.SuspiciousStewMeta;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-
-import java.util.ArrayList;
 
 public class GetItemCommand implements CommandExecutor {
     @Override
@@ -77,141 +69,42 @@ public class GetItemCommand implements CommandExecutor {
             player.getInventory().setItemInMainHand(item);
         }
 
-        if((args.length==1 || args.length==2) && DrinkManager.isDrink(args[0])) {
-
-            if(DrinkManager.getPossibleContainers(DrinkManager.getDrink(args[0])).isEmpty()) {
-                player.sendMessage(ChatColor.RED + "The drink container does not exist for this drink!");
-                return false;
-            }
-
-            ItemStack item;
-            ArrayList<PotionEffect> potionEffects = new ArrayList<>();
-
-            Container container = Container.BOTTLE;
-            if(args.length==2) {
-                for (Container element : Container.values()) {
-                    if (element.name().equalsIgnoreCase(args[1])) {
-                        container = element;
-                    }
+        ItemStack item = null;
+        if(item!=null && item.getType()!=Material.AIR) {
+            if(args.length>=2 && args[0].equalsIgnoreCase("lotr")) {
+                if(args.length>=3) {
+                    item = (ItemLotr.getItem(args[1], args[2]));
+                } else {
+                    item = (ItemLotr.getItem(args[1], null));
                 }
-            }
-            Drinks drink = DrinkManager.getDrink(args[0]);
-            int modelData=drink.getContainerModelData(container);
-
-            switch(container) {
-                case BOWL:
-                    item=new ItemStack(Material.SUSPICIOUS_STEW);
-                    break;
-                case TANKARD, BOTTLE:
-                    item=new ItemStack(Material.POTION);
-                    PotionMeta meta1 = (PotionMeta) item.getItemMeta();
-                    assert meta1 != null;
-                    meta1.setColor(Color.fromRGB(255,255,255));
-                    item.setItemMeta(meta1);
-                    break;
-                default:
-                    item=new ItemStack(Material.POTION);
-                    break;
-            }
-
-            if(args[0].equals("athelas")) {
-                ItemMeta meta = item.getItemMeta();
-                meta.setDisplayName(ChatColor.WHITE + "Athelas Brew");
-                NBT.modify(item, nbt -> {
-                    nbt.setString("Potion", "Athelas");
-                });
-                potionEffects.add(new PotionEffect(PotionEffectType.REGENERATION, 1200, 0, false, false, true));
-                potionEffects.add(new PotionEffect(PotionEffectType.STRENGTH, 2400, 0, false, false, true));
-                item.setItemMeta(meta);
-            } else if(args[0].equals("orc_draught")) {
-                ItemMeta meta = item.getItemMeta();
-                assert meta != null;
-                potionEffects.add(new PotionEffect(PotionEffectType.SPEED, 60, 0, false, false, true));
-                potionEffects.add(new PotionEffect(PotionEffectType.STRENGTH, 60, 0, false, false, true));
-                meta.setDisplayName(ChatColor.WHITE + "Orc Draught");
-                item.setItemMeta(meta);
-                NBT.modify(item, nbt -> {
-                    nbt.setString("Potion", "Orc_draught");
-                });
-            } else if(args[0].equals("ale")) {
-                ItemMeta meta = item.getItemMeta();
-                assert meta != null;
-                meta.setDisplayName(ChatColor.WHITE + "Ale");
-                item.setItemMeta(meta);
-                NBT.modify(item, nbt -> {
-                    nbt.setString("Potion", "Ale");
-                });
-            } else if(args[0].equals("miruvor")) {
-                ItemMeta miruvorMeta = item.getItemMeta();
-                assert miruvorMeta != null;
-                potionEffects.add(new PotionEffect(PotionEffectType.SPEED, 800, 0, false, false, true));
-                potionEffects.add(new PotionEffect(PotionEffectType.STRENGTH, 800, 0, false, false, true));
-                miruvorMeta.setDisplayName(ChatColor.WHITE + "Miruvor");
-                item.setItemMeta(miruvorMeta);
-                NBT.modify(item, nbt -> {
-                    nbt.setString("Potion", "Miruvor");
-                });
-            } else {
-                player.sendMessage(ChatColor.RED + "Invalid arguments!");
-                return false;
-            }
-
-                switch (container) {
-                    case BOWL:
-                        // if it is a bowl
-                        SuspiciousStewMeta suspiciousStewMeta = (SuspiciousStewMeta) item.getItemMeta();
-                        for (PotionEffect effect : potionEffects) {
-                            suspiciousStewMeta.addCustomEffect(effect, true);
-                        }
-                        suspiciousStewMeta.setCustomModelData(modelData);
-                        item.setItemMeta(suspiciousStewMeta);
-                        break;
-                    default:
-                        // if is not a bowl
-                        PotionMeta potionMeta = (PotionMeta) item.getItemMeta();
-                        for (PotionEffect effect : potionEffects) {
-                            potionMeta.addCustomEffect(effect, true);
-                        }
-                        potionMeta.setCustomModelData(modelData);
-                        item.setItemMeta(potionMeta);
-                        break;
-                }
-
-            Container finalContainer = container;
-            NBT.modify(item, nbt -> {
-                nbt.setString("Drink", drink.name().toLowerCase());
-                nbt.setString("Container", finalContainer.name().toLowerCase());
-            });
-
-            Consumable c = item.getData(DataComponentTypes.CONSUMABLE);
-            assert c != null;
-            float eatTime = 1.0f;
-            Consumable c1 = Consumable.consumable().consumeSeconds(eatTime).animation(c.animation()).addEffects(c.consumeEffects()).hasConsumeParticles(c.hasConsumeParticles()).sound(c.sound()).build();
-            item.setData(DataComponentTypes.CONSUMABLE, c1);
-
-
-            player.getInventory().addItem(item);
-        }
-
-        if(args.length==2 || args.length==3) {
-            ItemStack item = null;
-            if (args[0].equals("ent_draught")) {
-                item = (ItemDrink.getEntDraught(args[1]));
-            } else if (args[0].equals("xl_food")) {
-                item = FoodItemXL.getFoodItemXL(args[1]).getItem();
-            }
-            if(item!=null) {
-                if(args.length==3) {
+                if(args.length==4 && item!=null) {
                     try {
-                        item.setAmount(Integer.parseInt(args[2]));
+                        item.setAmount(Integer.parseInt(args[3]));
                     } catch (NumberFormatException ignored) {
-                        player.sendMessage(ChatColor.RED + "Invalid amount!");
+                        player.sendMessage(ChatColor.RED + "Invalid amount");
                     }
                 }
-                player.getInventory().addItem(item);
-            } else {
-                player.sendMessage(ChatColor.RED + "Invalid item!");
+            } else if(args.length>=2) {
+                // Check different pack namespaces
+                // Switch between different item classes
+                switch (args[0]) {
+                    case "xl_food" -> item = FoodItemXL.getFoodItemXL(args[1]).getItem();
+                    case "currency" -> item = CurrencyItem.getCurrencyItem(args[1]).getItem();
+                }
+                // Set count and run checks
+                if(item.getType()!=Material.AIR) {
+                    if(args.length==3) {
+                        try {
+                            item.setAmount(Integer.parseInt(args[2]));
+                        } catch (NumberFormatException ignored) {
+                            player.sendMessage(ChatColor.RED + "Invalid amount!");
+                        }
+                    }
+                } else {
+                    player.sendMessage(ChatColor.RED + "Invalid item!");
+                }
             }
+            player.getInventory().addItem(item);
         }
         return false;
     }
