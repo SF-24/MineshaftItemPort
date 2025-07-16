@@ -70,42 +70,41 @@ public class GetItemCommand implements CommandExecutor {
         }
 
         ItemStack item = null;
-        if(item!=null && item.getType()!=Material.AIR) {
-            if(args.length>=2 && args[0].equalsIgnoreCase("lotr")) {
-                if(args.length>=3) {
-                    item = (ItemLotr.getItem(args[1], args[2]));
-                } else {
-                    item = (ItemLotr.getItem(args[1], null));
-                }
-                if(args.length==4 && item!=null) {
-                    try {
-                        item.setAmount(Integer.parseInt(args[3]));
-                    } catch (NumberFormatException ignored) {
-                        player.sendMessage(ChatColor.RED + "Invalid amount");
-                    }
-                }
-            } else if(args.length>=2) {
-                // Check different pack namespaces
-                // Switch between different item classes
-                switch (args[0]) {
-                    case "xl_food" -> item = FoodItemXL.getFoodItemXL(args[1]).getItem();
-                    case "currency" -> item = CurrencyItem.getCurrencyItem(args[1]).getItem();
-                }
-                // Set count and run checks
-                if(item.getType()!=Material.AIR) {
-                    if(args.length==3) {
-                        try {
-                            item.setAmount(Integer.parseInt(args[2]));
-                        } catch (NumberFormatException ignored) {
-                            player.sendMessage(ChatColor.RED + "Invalid amount!");
-                        }
-                    }
-                } else {
-                    player.sendMessage(ChatColor.RED + "Invalid item!");
+        if(args.length>=2 && args[0].equalsIgnoreCase("lotr")) {
+            if(args.length>=3) {
+                item = (ItemLotr.getItem(args[1], args[2]));
+            } else {
+                item = (ItemLotr.getItem(args[1], null));
+            }
+            if(args.length==4 && item!=null) {
+                try {
+                    item.setAmount(Integer.parseInt(args[3]));
+                } catch (NumberFormatException ignored) {
+                    player.sendMessage(ChatColor.RED + "Invalid amount");
                 }
             }
-            player.getInventory().addItem(item);
+        } else if(args.length>=2) {
+            // Check different pack namespaces
+            // Switch between different item classes
+            switch (args[0]) {
+                case "xl_food" -> item = FoodItemXL.getFoodItemXL(args[1]).getItem();
+                case "currency" -> item = CurrencyItem.getCurrencyItem(args[1]).getItem();
+            }
+            // Set count and run checks
+            if(item.getType()!=Material.AIR) {
+                if(args.length==3) {
+                    try {
+                        item.setAmount(Integer.parseInt(args[2]));
+                    } catch (NumberFormatException ignored) {
+                        player.sendMessage(ChatColor.RED + "Invalid amount!");
+                    }
+                }
+            } else {
+                player.sendMessage(ChatColor.RED + "Invalid item!");
+            }
         }
+        player.getInventory().addItem(item);
+
         return false;
     }
 }
