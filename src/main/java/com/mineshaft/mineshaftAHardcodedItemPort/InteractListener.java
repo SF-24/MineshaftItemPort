@@ -1,12 +1,15 @@
 package com.mineshaft.mineshaftAHardcodedItemPort;
 
 import com.dre.brewery.api.events.brew.BrewModifyEvent;
+import com.mineshaft.mineshaftAHardcodedItemPort.items.FoodItemHp;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.drinks.DrinkManager;
 import com.mineshaft.mineshaftapi.nbtapi.NBT;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.Consumable;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -41,6 +44,28 @@ public class InteractListener implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
+        if(e.getItem()!=null && e.getItem().getType()!=Material.AIR) {
+            try {
+                NBT.get(e.getPlayer().getInventory().getItemInMainHand(), nbt->{
+                    if(nbt.getBoolean("disablePlacing")) {
+                        e.setCancelled(true);
+                    }
+                    if(nbt.getString("onInteract")!=null) {
+                        switch (nbt.getString("onInteract")) {
+                            case "openChocolateFrog" -> Bukkit.getScheduler().runTaskLater(MineshaftItemPort.getInstance(), ()->{
+                                e.getPlayer().getInventory().setItemInMainHand(FoodItemHp.CHOCOLATE_FROG_PACKAGED_OPENED.getItem());
+                                e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ITEM_ARMOR_EQUIP_LEATHER, 1.0f, 1.0f);
+                            },1/20);
+                            case "openChocolateFrogSpecial" -> Bukkit.getScheduler().runTaskLater(MineshaftItemPort.getInstance(), ()->{
+                                e.getPlayer().getInventory().setItemInMainHand(FoodItemHp.CHOCOLATE_FROG_SPECIAL_PACKAGED_OPENED.getItem());
+                                e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ITEM_ARMOR_EQUIP_LEATHER, 1.0f, 1.0f);
+                            },1/20);
+                        }
+                    }
+                });
+            } catch (Exception ignored) {}
+        }
+
         // Removed: ||e.getItem().getType().equals(Material.SUSPICIOUS_STEW)||e.getItem().getType().equals(Material.MUSHROOM_STEW)||e.getItem().getType().equals(Material.RABBIT_STEW)||e.getItem().getType().equals(Material.BEETROOT_SOUP)
         if(e.getItem()!=null && (e.getItem().getType().equals(Material.POTION)) && e.getItem().getData(DataComponentTypes.CONSUMABLE).consumeSeconds()>1.0f) {
             Consumable c = e.getItem().getData(DataComponentTypes.CONSUMABLE);

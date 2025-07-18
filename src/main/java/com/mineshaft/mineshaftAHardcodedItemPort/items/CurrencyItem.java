@@ -11,6 +11,9 @@ public enum CurrencyItem {
     GALLEON(Material.GOLD_NUGGET, 1),
     SICKLE(Material.GOLD_NUGGET, 2),
     KNUT(Material.GOLD_NUGGET, 3),
+    TEN_PENCE(Material.IRON_INGOT, 13),
+    ONE_POUND(Material.IRON_INGOT, 14),
+    TEN_POUNDS(Material.IRON_INGOT, 15),
     ;
 
     @Getter

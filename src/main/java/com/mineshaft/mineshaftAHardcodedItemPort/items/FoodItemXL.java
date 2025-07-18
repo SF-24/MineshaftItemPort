@@ -160,7 +160,7 @@ public enum FoodItemXL {
     CHOCOLATE_PIE(Material.PUMPKIN_PIE,7,8),
     BACON_PIE(Material.PUMPKIN_PIE,3,8),
     FISH_PIE(Material.PUMPKIN_PIE,4,8),
-    STRAWBERRY_PIE(Material.PUMPKIN_PIE,5,8),
+    STRAWBERRY_PIE(Material.PUMPKIN_PIE,6,8),
 
     TOMATO_SAUCE(Material.APPLE,75,0,0),
     HOT_SAUCE(Material.APPLE,76,0,0),
@@ -266,7 +266,7 @@ public enum FoodItemXL {
         this.nutrition=nutrition;
         this.saturation=saturation;
         this.eatTimeSeconds=eatTimeSeconds;
-        container=null;
+        container=Container.NULL;
         potionEffects = List.of();
     }
 
@@ -276,7 +276,7 @@ public enum FoodItemXL {
         this.nutrition=nutrition;
         this.saturation=saturation;
         this.eatTimeSeconds=getDefaultEatTimeInSeconds();
-        this.container=null;
+        this.container=Container.NULL;
         potionEffects = List.of();
     }
 
@@ -333,6 +333,8 @@ public enum FoodItemXL {
                 } else {
                     ItemUtil.setDefaultFood(xlItem, nutrition, saturation, eatTimeSeconds, false, false);
                 }
+            } else {
+                ItemUtil.setDefaultFood(xlItem, nutrition, saturation, eatTimeSeconds, false, false);
             }
 
             if(material.equals(Material.POTION)) {

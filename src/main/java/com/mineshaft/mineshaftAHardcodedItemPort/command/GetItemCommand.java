@@ -2,8 +2,14 @@ package com.mineshaft.mineshaftAHardcodedItemPort.command;
 
 import com.dre.brewery.api.BreweryApi;
 import com.mineshaft.mineshaftAHardcodedItemPort.items.CurrencyItem;
+import com.mineshaft.mineshaftAHardcodedItemPort.items.FoodItemHp;
 import com.mineshaft.mineshaftAHardcodedItemPort.items.FoodItemXL;
 import com.mineshaft.mineshaftAHardcodedItemPort.items.ItemLotr;
+import com.mineshaft.mineshaftAHardcodedItemPort.items.chocolate_frog_card.ChocolateFrogCard;
+import com.mineshaft.mineshaftAHardcodedItemPort.items.wand.Wand;
+import com.mineshaft.mineshaftAHardcodedItemPort.items.wand.WandCore;
+import com.mineshaft.mineshaftAHardcodedItemPort.items.wand.WandType;
+import com.mineshaft.mineshaftAHardcodedItemPort.items.wand.WandWood;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.drinks.DrinkManager;
 import com.mineshaft.mineshaftapi.nbtapi.NBT;
@@ -17,6 +23,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 
+import java.util.ArrayList;
+
 public class GetItemCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
@@ -28,7 +36,10 @@ public class GetItemCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
 
-        if(args.length==2 && args[0].equalsIgnoreCase("make_container")) {
+        if(args.length==1 && args[0].equals("chocolate_frog_card")) {
+            player.getInventory().addItem(ChocolateFrogCard.getRandomCard(1, new ArrayList<>()));
+            return false;
+        } else if(args.length==2 && args[0].equalsIgnoreCase("make_container")) {
             Container containerVar = Container.NULL;
             for(Container container : Container.values()) {
                 if(args[1].equalsIgnoreCase(container.name())) {
@@ -84,11 +95,43 @@ public class GetItemCommand implements CommandExecutor {
                 }
             }
         } else if(args.length>=2) {
+
             // Check different pack namespaces
             // Switch between different item classes
             switch (args[0]) {
-                case "xl_food" -> item = FoodItemXL.getFoodItemXL(args[1]).getItem();
-                case "currency" -> item = CurrencyItem.getCurrencyItem(args[1]).getItem();
+                case "xl_food" -> item = FoodItemXL.getFoodItemXL(args[1].toUpperCase()).getItem();
+                case "chocolate_frog_card" -> item = ChocolateFrogCard.valueOf(args[1].toUpperCase()).getItem();
+                case "currency" -> item = CurrencyItem.getCurrencyItem(args[1].toUpperCase()).getItem();
+                case "hp_food" -> item = FoodItemHp.getFoodItemHp(args[1].toUpperCase()).getItem();
+                case "wand" -> {
+                    WandType wandType;
+                    try {
+                        wandType = WandType.valueOf(args[1].toUpperCase());
+                    } catch (NullPointerException ignored) {
+                        sender.sendMessage(ChatColor.RED + "Invalid wand type");
+                        return false;
+                    }
+                    WandCore wandCore = WandCore.random(1, 1);
+                    WandWood wandWood = WandWood.random();
+                    if(args.length>=3) {
+                        try {
+                            wandCore=WandCore.valueOf(args[2].toUpperCase());
+                        } catch (NullPointerException ignored) {
+                            sender.sendMessage(ChatColor.RED + "Invalid wand core");
+                            return false;
+                        }
+                    }
+                    if(args.length>=4) {
+                        try {
+                            wandWood=WandWood.valueOf(args[3].toUpperCase());
+                        } catch (NullPointerException ignored) {
+                            sender.sendMessage(ChatColor.RED + "Invalid wand wood");
+                            return false;
+                        }
+                    }
+                    player.getInventory().addItem(Wand.getWand(wandType,wandCore,wandWood));
+                    return false;
+                }
             }
             // Set count and run checks
             if(item.getType()!=Material.AIR) {
