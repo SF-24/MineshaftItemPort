@@ -1,10 +1,7 @@
 package com.mineshaft.mineshaftAHardcodedItemPort.command;
 
 import com.dre.brewery.api.BreweryApi;
-import com.mineshaft.mineshaftAHardcodedItemPort.items.CurrencyItem;
-import com.mineshaft.mineshaftAHardcodedItemPort.items.FoodItemHp;
-import com.mineshaft.mineshaftAHardcodedItemPort.items.FoodItemXL;
-import com.mineshaft.mineshaftAHardcodedItemPort.items.ItemLotr;
+import com.mineshaft.mineshaftAHardcodedItemPort.items.*;
 import com.mineshaft.mineshaftAHardcodedItemPort.items.chocolate_frog_card.ChocolateFrogCard;
 import com.mineshaft.mineshaftAHardcodedItemPort.items.wand.Wand;
 import com.mineshaft.mineshaftAHardcodedItemPort.items.wand.WandCore;
@@ -100,6 +97,22 @@ public class GetItemCommand implements CommandExecutor {
             // Switch between different item classes
             switch (args[0]) {
                 case "xl_food" -> item = FoodItemXL.getFoodItemXL(args[1].toUpperCase()).getItem();
+                case "create" -> {
+                    for(FoodItemCreate element : FoodItemCreate.values()) {
+                        if(element.name().equalsIgnoreCase(args[1])) {
+                            item= element.getItem();
+                            break;
+                        }
+                    }
+                    if(item==null) {
+                        for (ItemCreate element : ItemCreate.values()) {
+                            if(element.name().equalsIgnoreCase(args[1])) {
+                                item=element.getItem();
+                                break;
+                            }
+                        }
+                    }
+                }
                 case "chocolate_frog_card" -> item = ChocolateFrogCard.valueOf(args[1].toUpperCase()).getItem();
                 case "currency" -> item = CurrencyItem.getCurrencyItem(args[1].toUpperCase()).getItem();
                 case "hp_food" -> item = FoodItemHp.getFoodItemHp(args[1].toUpperCase()).getItem();
