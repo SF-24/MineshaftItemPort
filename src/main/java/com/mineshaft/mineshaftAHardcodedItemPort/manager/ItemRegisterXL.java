@@ -623,9 +623,37 @@ public class ItemRegisterXL {
                 COFFEE.getItem(), getItemStack(Material.MILK_BUCKET)
         ));
 
+        // Added IN THE 1.16.5 UPDATE:
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(LEMON_SLUSHIE.getItem(), List.of(
+            LEMON_SYRUP.getItem(),getItemStack(Material.GLASS_BOTTLE), getItemStack(Material.SNOWBALL)
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(PINEAPPLE_SLUSHIE.getItem(), List.of(
+            PINEAPPLE_SYRUP.getItem(),getItemStack(Material.GLASS_BOTTLE), getItemStack(Material.SNOWBALL)
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(STRAWBERRY_SLUSHIE.getItem(), List.of(
+            STRAWBERRY_SYRUP.getItem(),getItemStack(Material.GLASS_BOTTLE), getItemStack(Material.SNOWBALL)
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(LEMON_JUICE.getItem(), List.of(
+            LEMON.getItem(), getItemStack(Material.GLASS_BOTTLE)
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(PINEAPPLE_JUICE.getItem(), List.of(
+            PINEAPPLE.getItem(), getItemStack(Material.GLASS_BOTTLE)
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerShapelessRecipeMisc(STRAWBERRY_JUICE.getItem(), List.of(
+            STRAWBERRY.getItem(), getItemStack(Material.GLASS_BOTTLE)
+        ));
+
+        MineshaftItemPort.getRecipeRegistrar().registerFurnaceRecipeSimpleFood(LEMON_JUICE.getItem(),LEMON_SYRUP.getItem());
+        MineshaftItemPort.getRecipeRegistrar().registerFurnaceRecipeSimpleFood(PINEAPPLE_JUICE.getItem(),PINEAPPLE_SYRUP.getItem());
+        MineshaftItemPort.getRecipeRegistrar().registerFurnaceRecipeSimpleFood(STRAWBERRY_JUICE.getItem(),STRAWBERRY_SYRUP.getItem());
+
         // TODO: Add remaining recipes
-
-
     }
 
 
