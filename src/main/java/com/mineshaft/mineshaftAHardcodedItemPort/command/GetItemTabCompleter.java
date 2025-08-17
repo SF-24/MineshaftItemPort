@@ -7,7 +7,6 @@ import com.mineshaft.mineshaftAHardcodedItemPort.items.wand.WandType;
 import com.mineshaft.mineshaftAHardcodedItemPort.items.wand.WandWood;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.drinks.DrinkManager;
-import net.minecraft.world.level.block.state.properties.WoodType;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -22,7 +21,7 @@ public class GetItemTabCompleter implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
         if(args.length==1) {
-            return StringUtil.copyPartialMatches(args[0], Arrays.asList("lotr","teleport_scroll","make_container","xl_food","create","currency","wand","chocolate_frog_card","hp_food"),new ArrayList<>());
+            return StringUtil.copyPartialMatches(args[0], Arrays.asList("lotr","teleport_scroll","make_container","xl_food","create","currency","wand","chocolate_frog_card","food"),new ArrayList<>());
         } else if(args.length==2 && args[0].equalsIgnoreCase("lotr")) {
             return StringUtil.copyPartialMatches(args[1], Arrays.asList("ale","athelas","miruvor","ent_draught","orc_draught"), new ArrayList<>());
         } else if(args.length==3 && args[0].equalsIgnoreCase("lotr") && args[1].equals("ent_draught")) {
@@ -35,17 +34,19 @@ public class GetItemTabCompleter implements TabCompleter {
             return StringUtil.copyPartialMatches(args[1], itemList,new ArrayList<>());
         } else if(args.length==2 && args[0].equals("create")) {
             ArrayList<String> itemList = new ArrayList<>();
-            for(FoodItemCreate item: FoodItemCreate.values()) {
+            for(FoodItemTech item: FoodItemTech.values()) {
                 itemList.add(item.name().toLowerCase());
             }
-            for(ItemCreate item: ItemCreate.values()) {
+            for(ItemTech item: ItemTech.values()) {
                 itemList.add(item.name().toLowerCase());
             }
             return StringUtil.copyPartialMatches(args[1], itemList,new ArrayList<>());
-        } else if(args.length==2 && args[0].equals("hp_food")) {
+        } else if(args.length==2 && args[0].equals("food")) {
             ArrayList<String> itemList = new ArrayList<>();
-            for(FoodItemHp i: FoodItemHp.values()) {
-                itemList.add(i.name().toLowerCase());
+            for(FoodItem i: FoodItem.values()) {
+                if(i!=FoodItem.CHOCOLATE_FROG_PACKAGED_OPENED && i!=FoodItem.CHOCOLATE_FROG_SPECIAL_PACKAGED_OPENED && i!=FoodItem.CHOCOLATE_FROG_SPECIAL_PACKAGED) {
+                    itemList.add(i.name().toLowerCase());
+                }
             }
             return StringUtil.copyPartialMatches(args[1], itemList,new ArrayList<>());
         } else if(args.length==2 && args[0].equals("currency")) {

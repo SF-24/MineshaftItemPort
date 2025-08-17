@@ -98,14 +98,14 @@ public class GetItemCommand implements CommandExecutor {
             switch (args[0]) {
                 case "xl_food" -> item = FoodItemXL.getFoodItemXL(args[1].toUpperCase()).getItem();
                 case "create" -> {
-                    for(FoodItemCreate element : FoodItemCreate.values()) {
+                    for(FoodItemTech element : FoodItemTech.values()) {
                         if(element.name().equalsIgnoreCase(args[1])) {
                             item= element.getItem();
                             break;
                         }
                     }
                     if(item==null) {
-                        for (ItemCreate element : ItemCreate.values()) {
+                        for (ItemTech element : ItemTech.values()) {
                             if(element.name().equalsIgnoreCase(args[1])) {
                                 item=element.getItem();
                                 break;
@@ -115,7 +115,7 @@ public class GetItemCommand implements CommandExecutor {
                 }
                 case "chocolate_frog_card" -> item = ChocolateFrogCard.valueOf(args[1].toUpperCase()).getItem();
                 case "currency" -> item = CurrencyItem.getCurrencyItem(args[1].toUpperCase()).getItem();
-                case "hp_food" -> item = FoodItemHp.getFoodItemHp(args[1].toUpperCase()).getItem();
+                case "food" -> item = FoodItem.getFoodItem(args[1].toUpperCase()).getItem();
                 case "wand" -> {
                     WandType wandType;
                     try {

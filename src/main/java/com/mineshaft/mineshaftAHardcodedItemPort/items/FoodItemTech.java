@@ -13,10 +13,9 @@ import org.bukkit.potion.PotionEffect;
 
 import java.util.List;
 
-public enum FoodItemCreate {
+public enum FoodItemTech {
 
-    CHOCOLATE_BAR(Material.APPLE,86,6,0.3f),
-    CHOCOLATE_GLAZED_BERRIES(Material.APPLE,87, 6,8.0f)
+    CHOCOLATE_BAR(Material.APPLE,86,6,0.3f)
     ;
 
     private final Material material;
@@ -27,7 +26,7 @@ public enum FoodItemCreate {
     private final List<PotionEffect> potionEffects;
     private Container container;
 
-    FoodItemCreate(Material material, int customModelData, int nutrition, float saturation, float eatTimeSeconds, Container container, List<PotionEffect> potionEffectList) {
+    FoodItemTech(Material material, int customModelData, int nutrition, float saturation, float eatTimeSeconds, Container container, List<PotionEffect> potionEffectList) {
         this.material=material;
         this.customModelData=customModelData;
         this.nutrition=nutrition;
@@ -37,7 +36,7 @@ public enum FoodItemCreate {
         potionEffects = potionEffectList;
     }
 
-    FoodItemCreate(Material material, int customModelData, int nutrition, float saturation, float eatTimeSeconds, Container container) {
+    FoodItemTech(Material material, int customModelData, int nutrition, float saturation, float eatTimeSeconds, Container container) {
         this.material=material;
         this.customModelData=customModelData;
         this.nutrition=nutrition;
@@ -47,7 +46,7 @@ public enum FoodItemCreate {
         potionEffects = List.of();
     }
 
-    FoodItemCreate(Material material, int customModelData, int nutrition, float saturation, Container container) {
+    FoodItemTech(Material material, int customModelData, int nutrition, float saturation, Container container) {
         this.material=material;
         this.customModelData=customModelData;
         this.nutrition=nutrition;
@@ -57,7 +56,7 @@ public enum FoodItemCreate {
         potionEffects = List.of();
     }
 
-    FoodItemCreate(Material material, int customModelData, int nutrition, float saturation, float eatTimeSeconds) {
+    FoodItemTech(Material material, int customModelData, int nutrition, float saturation, float eatTimeSeconds) {
         this.material=material;
         this.customModelData=customModelData;
         this.nutrition=nutrition;
@@ -67,7 +66,7 @@ public enum FoodItemCreate {
         potionEffects = List.of();
     }
 
-    FoodItemCreate(Material material, int customModelData, int nutrition, float saturation) {
+    FoodItemTech(Material material, int customModelData, int nutrition, float saturation) {
         this.material=material;
         this.customModelData=customModelData;
         this.nutrition=nutrition;
@@ -77,7 +76,7 @@ public enum FoodItemCreate {
         potionEffects = List.of();
     }
 
-    FoodItemCreate(Material material, int customModelData, int nutrition, Container container) {
+    FoodItemTech(Material material, int customModelData, int nutrition, Container container) {
         this.material=material;
         this.customModelData=customModelData;
         this.nutrition=nutrition;
@@ -87,7 +86,7 @@ public enum FoodItemCreate {
         potionEffects = List.of();
     }
 
-    FoodItemCreate(Material material, int customModelData, int nutrition) {
+    FoodItemTech(Material material, int customModelData, int nutrition) {
         this.material=material;
         this.customModelData=customModelData;
         this.nutrition=nutrition;
@@ -97,7 +96,7 @@ public enum FoodItemCreate {
         this.potionEffects=List.of();
     }
 
-    FoodItemCreate(Material material, int customModelData) {
+    FoodItemTech(Material material, int customModelData) {
         this.material=material;
         this.customModelData=customModelData;
         this.nutrition=1;
@@ -158,8 +157,8 @@ public enum FoodItemCreate {
         return xlItem;
     }
 
-    public static FoodItemCreate getFoodItemCreate(String name) {
-        return FoodItemCreate.valueOf(name.toUpperCase());
+    public static FoodItemTech getFoodItemCreate(String name) {
+        return FoodItemTech.valueOf(name.toUpperCase());
     }
 
 

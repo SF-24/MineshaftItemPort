@@ -1,7 +1,7 @@
 package com.mineshaft.mineshaftAHardcodedItemPort;
 
 import com.dre.brewery.api.events.brew.BrewModifyEvent;
-import com.mineshaft.mineshaftAHardcodedItemPort.items.FoodItemHp;
+import com.mineshaft.mineshaftAHardcodedItemPort.items.FoodItem;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.drinks.DrinkManager;
 import com.mineshaft.mineshaftapi.nbtapi.NBT;
@@ -53,11 +53,11 @@ public class InteractListener implements Listener {
                     if(nbt.getString("onInteract")!=null) {
                         switch (nbt.getString("onInteract")) {
                             case "openChocolateFrog" -> Bukkit.getScheduler().runTaskLater(MineshaftItemPort.getInstance(), ()->{
-                                e.getPlayer().getInventory().setItemInMainHand(FoodItemHp.CHOCOLATE_FROG_PACKAGED_OPENED.getItem());
+                                e.getPlayer().getInventory().setItemInMainHand(FoodItem.CHOCOLATE_FROG_PACKAGED_OPENED.getItem());
                                 e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ITEM_ARMOR_EQUIP_LEATHER, 1.0f, 1.0f);
                             },1/20);
                             case "openChocolateFrogSpecial" -> Bukkit.getScheduler().runTaskLater(MineshaftItemPort.getInstance(), ()->{
-                                e.getPlayer().getInventory().setItemInMainHand(FoodItemHp.CHOCOLATE_FROG_SPECIAL_PACKAGED_OPENED.getItem());
+                                e.getPlayer().getInventory().setItemInMainHand(FoodItem.CHOCOLATE_FROG_SPECIAL_PACKAGED_OPENED.getItem());
                                 e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ITEM_ARMOR_EQUIP_LEATHER, 1.0f, 1.0f);
                             },1/20);
                         }

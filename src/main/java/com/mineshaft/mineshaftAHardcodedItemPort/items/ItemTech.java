@@ -6,14 +6,15 @@ import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-public enum ItemCreate {
-;
+public enum ItemTech {
+
+    ;
 
     @Getter
     private final Material material;
     private final int customModelData;
 
-    ItemCreate(Material material, int customModelData) {
+    ItemTech(Material material, int customModelData) {
         this.material=material;
         this.customModelData=customModelData;
     }

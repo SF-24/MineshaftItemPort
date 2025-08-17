@@ -164,7 +164,7 @@ public class FoodListener implements Listener {
                 MineshaftItemPort.getInstance().getServer().getScheduler().runTaskLaterAsynchronously(MineshaftItemPort.getInstance(), () -> {
                     brew.setAmount(brew.getAmount() - 1);
                     System.out.printf("Container " + finalContainer);
-                    if (finalContainer.equals(Container.NULL)) {
+                    if (finalContainer==Container.NULL) {
                         event.getPlayer().getInventory().addItem(new ItemStack(Material.GLASS_BOTTLE));
                     } else {
                         event.getPlayer().getInventory().addItem(finalContainer.getItem());

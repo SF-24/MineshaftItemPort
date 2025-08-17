@@ -22,7 +22,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public enum FoodItemHp {
+public enum FoodItem {
+    CHOCOLATE_GLAZED_BERRIES(Material.APPLE,87, 6,8.0f),
     CHOCOLATE_FROG(Material.APPLE,85,3),
     CHOCOLATE_FROG_PACKAGED_OPENED(Material.BUNDLE,1),
     CHOCOLATE_FROG_PACKAGED(Material.IRON_INGOT,16),
@@ -40,7 +41,7 @@ public enum FoodItemHp {
     private final List<PotionEffect> potionEffects;
     private Container container;
 
-    FoodItemHp(Material material, int customModelData, int nutrition, float saturation, float eatTimeSeconds, Container container, List<PotionEffect> potionEffectList) {
+    FoodItem(Material material, int customModelData, int nutrition, float saturation, float eatTimeSeconds, Container container, List<PotionEffect> potionEffectList) {
         this.material=material;
         this.customModelData=customModelData;
         this.nutrition=nutrition;
@@ -50,7 +51,7 @@ public enum FoodItemHp {
         potionEffects = potionEffectList;
     }
 
-    FoodItemHp(Material material, int customModelData, int nutrition, float saturation, float eatTimeSeconds, Container container) {
+    FoodItem(Material material, int customModelData, int nutrition, float saturation, float eatTimeSeconds, Container container) {
         this.material=material;
         this.customModelData=customModelData;
         this.nutrition=nutrition;
@@ -60,7 +61,7 @@ public enum FoodItemHp {
         potionEffects = List.of();
     }
 
-    FoodItemHp(Material material, int customModelData, int nutrition, float saturation, Container container) {
+    FoodItem(Material material, int customModelData, int nutrition, float saturation, Container container) {
         this.material=material;
         this.customModelData=customModelData;
         this.nutrition=nutrition;
@@ -70,7 +71,7 @@ public enum FoodItemHp {
         potionEffects = List.of();
     }
 
-    FoodItemHp(Material material, int customModelData, int nutrition, float saturation, float eatTimeSeconds) {
+    FoodItem(Material material, int customModelData, int nutrition, float saturation, float eatTimeSeconds) {
         this.material=material;
         this.customModelData=customModelData;
         this.nutrition=nutrition;
@@ -80,7 +81,7 @@ public enum FoodItemHp {
         potionEffects = List.of();
     }
 
-    FoodItemHp(Material material, int customModelData, int nutrition, float saturation) {
+    FoodItem(Material material, int customModelData, int nutrition, float saturation) {
         this.material=material;
         this.customModelData=customModelData;
         this.nutrition=nutrition;
@@ -90,7 +91,7 @@ public enum FoodItemHp {
         potionEffects = List.of();
     }
 
-    FoodItemHp(Material material, int customModelData, int nutrition, Container container) {
+    FoodItem(Material material, int customModelData, int nutrition, Container container) {
         this.material=material;
         this.customModelData=customModelData;
         this.nutrition=nutrition;
@@ -100,7 +101,7 @@ public enum FoodItemHp {
         potionEffects = List.of();
     }
 
-    FoodItemHp(Material material, int customModelData, int nutrition) {
+    FoodItem(Material material, int customModelData, int nutrition) {
         this.material=material;
         this.customModelData=customModelData;
         this.nutrition=nutrition;
@@ -110,7 +111,7 @@ public enum FoodItemHp {
         this.potionEffects=List.of();
     }
 
-    FoodItemHp(Material material, int customModelData) {
+    FoodItem(Material material, int customModelData) {
         this.material=material;
         this.customModelData=customModelData;
         this.nutrition=1;
@@ -192,7 +193,6 @@ public enum FoodItemHp {
                             ItemUtil.setDefaultFood(foodItem, nutrition, saturation, eatTimeSeconds, false, false);
                         }
                     }
-
                     if(material.equals(Material.POTION)) {
                         PotionMeta meta = (PotionMeta) foodItem.getItemMeta();
                         for(PotionEffect potionEffect : potionEffects) {
@@ -219,8 +219,8 @@ public enum FoodItemHp {
         }
     }
 
-    public static FoodItemHp getFoodItemHp(String name) {
-        return FoodItemHp.valueOf(name.toUpperCase());
+    public static FoodItem getFoodItem(String name) {
+        return FoodItem.valueOf(name.toUpperCase());
     }
 
 }
