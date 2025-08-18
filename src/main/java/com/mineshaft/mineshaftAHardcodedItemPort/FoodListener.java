@@ -1,10 +1,9 @@
 package com.mineshaft.mineshaftAHardcodedItemPort;
 
-import com.dre.brewery.api.BreweryApi;
-import com.dre.brewery.api.events.brew.BrewDrinkEvent;
-import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.PlayerManager;
+import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 import com.mineshaft.mineshaftapi.nbtapi.NBT;
+import dev.jsinco.brewery.bukkit.TheBrewingProject;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,7 +13,6 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
-import java.util.Objects;
 
 public class FoodListener implements Listener {
 
@@ -28,12 +26,6 @@ public class FoodListener implements Listener {
 
         // Get properties
         NBT.get(e.getItem(), nbt -> {
-
-            // If is brewery brew
-            if(BreweryApi.isBrew(e.getItem())) {
-                e.setCancelled(false);
-                return;
-            }
 
             // Get container
             String strContainer = nbt.getString("Container");
@@ -54,7 +46,7 @@ public class FoodListener implements Listener {
             // if is valid:
             if(!container.equals(Container.BOWL) && !container.equals(Container.BOTTLE)) {
                 ItemStack dropItem = container.getItem();
-                if (e.getItem().getAmount() > 1 && !BreweryApi.isBrew(e.getItem())) {
+                if (e.getItem().getAmount() > 1) {
                     // Give the player the container item
                     if (PlayerManager.canTakeMoreOfItem(e.getPlayer(), dropItem)) {
                         e.getPlayer().getInventory().addItem(dropItem);
@@ -134,72 +126,72 @@ public class FoodListener implements Listener {
         });
     }
 
-    @EventHandler
-    public void drinkBrew(BrewDrinkEvent event) {
-        ItemStack brew;
-        final boolean mainHand;
-        if(Objects.equals(event.getPlayer().getInventory().getItemInMainHand().getItemMeta(), event.getItemMeta())) {
-            brew = event.getPlayer().getInventory().getItemInMainHand();
-            mainHand=true;
-        } else if(Objects.equals(event.getPlayer().getInventory().getItemInOffHand().getItemMeta(), event.getItemMeta())) {
-            brew = event.getPlayer().getInventory().getItemInOffHand();
-            mainHand=false;
-        } else {
-            return;
-        }
-        if (brew.getAmount() > 1) {
-            System.out.printf("Returning vanished items...");
-            // Recompense items which vanished due to the brewery plugin.
-
-            NBT.get(brew, nbt -> {
-
-                String strContainer = nbt.getString("Container");
-                Container container = Container.NULL;
-                for (Container c : Container.values()) {
-                    if (strContainer.equalsIgnoreCase(c.name())) {
-                        container = c;
-                    }
-                }
-                Container finalContainer = container;
-                MineshaftItemPort.getInstance().getServer().getScheduler().runTaskLaterAsynchronously(MineshaftItemPort.getInstance(), () -> {
-                    brew.setAmount(brew.getAmount() - 1);
-                    System.out.printf("Container " + finalContainer);
-                    if (finalContainer==Container.NULL) {
-                        event.getPlayer().getInventory().addItem(new ItemStack(Material.GLASS_BOTTLE));
-                    } else {
-                        event.getPlayer().getInventory().addItem(finalContainer.getItem());
-                    }
-                    if (mainHand) {
-                        event.getPlayer().getInventory().setItemInMainHand(brew);
-                    } else {
-                        event.getPlayer().getInventory().setItemInOffHand(brew);
-                    }
-                }, 1 / 80);
-            });
-        } else {
-            NBT.get(brew, nbt -> {
-
-                String strContainer = nbt.getString("Container");
-                Container container = Container.NULL;
-                for (Container c : Container.values()) {
-                    System.out.println("container:" + strContainer);
-                    if (strContainer.equalsIgnoreCase(c.name())) {
-                        container = c;
-                    }
-                }
-                Container finalContainer = container;
-
-                if(container == Container.NULL) {return;}
-                MineshaftItemPort.getInstance().getServer().getScheduler().runTaskLaterAsynchronously(MineshaftItemPort.getInstance(), () -> {
-                    if (mainHand) {
-                        event.getPlayer().getInventory().setItemInMainHand(finalContainer.getItem());
-                    } else {
-                        event.getPlayer().getInventory().setItemInOffHand(finalContainer.getItem());
-                    }
-                }, 1 / 80);
-            });
-        }
-    }
+//    @EventHandler
+//    public void drinkBrew(DrinkEvent event) {
+//        ItemStack brew;
+//        final boolean mainHand;
+//        if(Objects.equals(event.getPlayer().getInventory().getItemInMainHand().getItemMeta(), event.getItemMeta())) {
+//            brew = event.getPlayer().getInventory().getItemInMainHand();
+//            mainHand=true;
+//        } else if(Objects.equals(event.getPlayer().getInventory().getItemInOffHand().getItemMeta(), event.getItemMeta())) {
+//            brew = event.getPlayer().getInventory().getItemInOffHand();
+//            mainHand=false;
+//        } else {
+//            return;
+//        }
+//        if (brew.getAmount() > 1) {
+//            System.out.printf("Returning vanished items...");
+//            // Recompense items which vanished due to the brewery plugin.
+//
+//            NBT.get(brew, nbt -> {
+//
+//                String strContainer = nbt.getString("Container");
+//                Container container = Container.NULL;
+//                for (Container c : Container.values()) {
+//                    if (strContainer.equalsIgnoreCase(c.name())) {
+//                        container = c;
+//                    }
+//                }
+//                Container finalContainer = container;
+//                MineshaftItemPort.getInstance().getServer().getScheduler().runTaskLaterAsynchronously(MineshaftItemPort.getInstance(), () -> {
+//                    brew.setAmount(brew.getAmount() - 1);
+//                    System.out.printf("Container " + finalContainer);
+//                    if (finalContainer==Container.NULL) {
+//                        event.getPlayer().getInventory().addItem(new ItemStack(Material.GLASS_BOTTLE));
+//                    } else {
+//                        event.getPlayer().getInventory().addItem(finalContainer.getItem());
+//                    }
+//                    if (mainHand) {
+//                        event.getPlayer().getInventory().setItemInMainHand(brew);
+//                    } else {
+//                        event.getPlayer().getInventory().setItemInOffHand(brew);
+//                    }
+//                }, 1 / 80);
+//            });
+//        } else {
+//            NBT.get(brew, nbt -> {
+//
+//                String strContainer = nbt.getString("Container");
+//                Container container = Container.NULL;
+//                for (Container c : Container.values()) {
+//                    System.out.println("container:" + strContainer);
+//                    if (strContainer.equalsIgnoreCase(c.name())) {
+//                        container = c;
+//                    }
+//                }
+//                Container finalContainer = container;
+//
+//                if(container == Container.NULL) {return;}
+//                MineshaftItemPort.getInstance().getServer().getScheduler().runTaskLaterAsynchronously(MineshaftItemPort.getInstance(), () -> {
+//                    if (mainHand) {
+//                        event.getPlayer().getInventory().setItemInMainHand(finalContainer.getItem());
+//                    } else {
+//                        event.getPlayer().getInventory().setItemInOffHand(finalContainer.getItem());
+//                    }
+//                }, 1 / 80);
+//            });
+//        }
+//    }
 
     public Material getDropMaterial(Material material) {
         if(material == Material.POTION) {return Material.GLASS_BOTTLE;}

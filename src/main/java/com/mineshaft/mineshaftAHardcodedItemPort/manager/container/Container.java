@@ -1,5 +1,7 @@
 package com.mineshaft.mineshaftAHardcodedItemPort.manager.container;
 
+import com.mineshaft.mineshaftAHardcodedItemPort.items.FoodItemXL;
+import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -20,6 +22,7 @@ public enum Container {
     ;
     private final String name;
     private final int modelData;
+    @Getter
     private final Material material;
 
     Container(Material material, int modelData, String name) {
@@ -27,6 +30,11 @@ public enum Container {
         this.modelData=modelData;
         this.name=name;
     }
+
+    public static Container getContainer(String name) {
+        return Container.valueOf(name.toUpperCase());
+    }
+
 
     public ItemStack getItem(int amount) {
         ItemStack item = new ItemStack(material);
@@ -48,7 +56,5 @@ public enum Container {
     public ItemStack getItem() {
         return getItem(1);
     }
-
-    public Material getMaterial() {return material;}
 
 }

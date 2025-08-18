@@ -1,6 +1,5 @@
 package com.mineshaft.mineshaftAHardcodedItemPort.command;
 
-import com.dre.brewery.api.BreweryApi;
 import com.mineshaft.mineshaftAHardcodedItemPort.items.*;
 import com.mineshaft.mineshaftAHardcodedItemPort.items.chocolate_frog_card.ChocolateFrogCard;
 import com.mineshaft.mineshaftAHardcodedItemPort.items.wand.Wand;
@@ -10,6 +9,7 @@ import com.mineshaft.mineshaftAHardcodedItemPort.items.wand.WandWood;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.drinks.DrinkManager;
 import com.mineshaft.mineshaftapi.nbtapi.NBT;
+import dev.jsinco.brewery.bukkit.TheBrewingProject;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -49,10 +49,10 @@ public class GetItemCommand implements CommandExecutor {
             }
             ItemStack item = player.getInventory().getItemInMainHand();
             ItemMeta meta = item.getItemMeta();
-            if(BreweryApi.isBrew(item)) {
+            if(TheBrewingProject.getInstance().getBrewManager().fromItem(item).isPresent()) {
                 if(containerVar.equals(Container.TANKARD)) {
                     if(meta instanceof PotionMeta) {
-                        meta.setCustomModelData(DrinkManager.getBrewModelData(BreweryApi.getBrew(item), containerVar));
+                        meta.setCustomModelData(DrinkManager.getBrewModelData(TheBrewingProject.getInstance().getBrewManager().fromItem(item).get(), containerVar));
                         //((PotionMeta) meta).setColor(Color.fromRGB(255,255,255));
                     }
                 } else {
@@ -97,6 +97,7 @@ public class GetItemCommand implements CommandExecutor {
             // Switch between different item classes
             switch (args[0]) {
                 case "xl_food" -> item = FoodItemXL.getFoodItemXL(args[1].toUpperCase()).getItem();
+                case "container" -> item = Container.getContainer(args[1].toUpperCase()).getItem();
                 case "create" -> {
                     for(FoodItemTech element : FoodItemTech.values()) {
                         if(element.name().equalsIgnoreCase(args[1])) {
@@ -147,7 +148,7 @@ public class GetItemCommand implements CommandExecutor {
                 }
             }
             // Set count and run checks
-            if(item.getType()!=Material.AIR) {
+            if(item!=null && item.getType()!=Material.AIR) {
                 if(args.length==3) {
                     try {
                         item.setAmount(Integer.parseInt(args[2]));

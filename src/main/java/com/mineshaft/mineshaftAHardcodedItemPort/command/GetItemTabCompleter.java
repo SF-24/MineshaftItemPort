@@ -21,7 +21,7 @@ public class GetItemTabCompleter implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
         if(args.length==1) {
-            return StringUtil.copyPartialMatches(args[0], Arrays.asList("lotr","teleport_scroll","make_container","xl_food","create","currency","wand","chocolate_frog_card","food"),new ArrayList<>());
+            return StringUtil.copyPartialMatches(args[0], Arrays.asList("lotr","teleport_scroll","make_container","xl_food","container","create","currency","wand","chocolate_frog_card","food"),new ArrayList<>());
         } else if(args.length==2 && args[0].equalsIgnoreCase("lotr")) {
             return StringUtil.copyPartialMatches(args[1], Arrays.asList("ale","athelas","miruvor","ent_draught","orc_draught"), new ArrayList<>());
         } else if(args.length==3 && args[0].equalsIgnoreCase("lotr") && args[1].equals("ent_draught")) {
@@ -38,6 +38,12 @@ public class GetItemTabCompleter implements TabCompleter {
                 itemList.add(item.name().toLowerCase());
             }
             for(ItemTech item: ItemTech.values()) {
+                itemList.add(item.name().toLowerCase());
+            }
+            return StringUtil.copyPartialMatches(args[1], itemList,new ArrayList<>());
+        } else if(args.length==2 && args[0].equals("container")) {
+            ArrayList<String> itemList = new ArrayList<>();
+            for(Container item: Container.values()) {
                 itemList.add(item.name().toLowerCase());
             }
             return StringUtil.copyPartialMatches(args[1], itemList,new ArrayList<>());

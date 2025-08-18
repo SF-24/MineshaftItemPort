@@ -1,9 +1,6 @@
 package com.mineshaft.mineshaftAHardcodedItemPort;
 
-import com.dre.brewery.api.events.brew.BrewModifyEvent;
 import com.mineshaft.mineshaftAHardcodedItemPort.items.FoodItem;
-import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
-import com.mineshaft.mineshaftAHardcodedItemPort.manager.drinks.DrinkManager;
 import com.mineshaft.mineshaftapi.nbtapi.NBT;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.Consumable;
@@ -15,32 +12,31 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class InteractListener implements Listener {
 
-    @EventHandler
-    public void onBrew(BrewModifyEvent e) {
-        if(e.getType().equals(BrewModifyEvent.Type.FILL)) {
-            ItemStack mainHand = e.getPlayer().getInventory().getItemInMainHand();
-            if (mainHand.getType().equals(Material.GLASS_BOTTLE) && mainHand.getItemMeta()!=null && mainHand.getItemMeta().hasCustomModelData() && mainHand.getItemMeta().getCustomModelData()==Container.TANKARD.getItem().getItemMeta().getCustomModelData()) {
-                MineshaftItemPort.getInstance().getServer().getScheduler().runTaskLaterAsynchronously(MineshaftItemPort.getInstance(), () -> {
-                    ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
-                    ItemMeta meta = item.getItemMeta();
-                    assert meta != null;
-                    meta.setCustomModelData(DrinkManager.getBrewModelData(e.getBrew(), Container.TANKARD));
-                    item.setItemMeta(meta);
-                    Container finalContainer = Container.TANKARD;
-                    NBT.modify(item, nbt -> {
-                        nbt.setString("Container", finalContainer.name().toLowerCase());
-                    });
-
-                    e.getPlayer().getInventory().setItemInMainHand(item);
-                }, 1 / 80);
-
-            }
-        }
-    }
+//    @EventHandler
+//    public void onBrew(BrewModifyEvent e) {
+//        if(e.getType().equals(BrewModifyEvent.Type.FILL)) {
+//            ItemStack mainHand = e.getPlayer().getInventory().getItemInMainHand();
+//            if (mainHand.getType().equals(Material.GLASS_BOTTLE) && mainHand.getItemMeta()!=null && mainHand.getItemMeta().hasCustomModelData() && mainHand.getItemMeta().getCustomModelData()==Container.TANKARD.getItem().getItemMeta().getCustomModelData()) {
+//                MineshaftItemPort.getInstance().getServer().getScheduler().runTaskLaterAsynchronously(MineshaftItemPort.getInstance(), () -> {
+//                    ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
+//                    ItemMeta meta = item.getItemMeta();
+//                    assert meta != null;
+//                    meta.setCustomModelData(DrinkManager.getBrewModelData(e.getBrew(), Container.TANKARD));
+//                    item.setItemMeta(meta);
+//                    Container finalContainer = Container.TANKARD;
+//                    NBT.modify(item, nbt -> {
+//                        nbt.setString("Container", finalContainer.name().toLowerCase());
+//                    });
+//
+//                    e.getPlayer().getInventory().setItemInMainHand(item);
+//                }, 1 / 80);
+//
+//            }
+//        }
+//    }
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
