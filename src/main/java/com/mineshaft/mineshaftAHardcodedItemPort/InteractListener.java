@@ -1,14 +1,19 @@
 package com.mineshaft.mineshaftAHardcodedItemPort;
 
+import com.mineshaft.mineshaftAHardcodedItemPort.items.CropXL;
 import com.mineshaft.mineshaftAHardcodedItemPort.items.FoodItem;
+import com.mineshaft.mineshaftAHardcodedItemPort.items.FoodItemXL;
 import com.mineshaft.mineshaftapi.nbtapi.NBT;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.Consumable;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -80,6 +85,26 @@ public class InteractListener implements Listener {
                     item.setData(DataComponentTypes.CONSUMABLE, c1);
                     e.getPlayer().getInventory().setItemInMainHand(item);
                 }, 1 / 100);
+            }
+        }
+
+        if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && e.getClickedBlock()!=null && e.getClickedBlock().getType()!=Material.AIR && e.getClickedBlock().getType()==(Material.FARMLAND) && e.getBlockFace().equals(BlockFace.UP)) {
+            if(e.getItem()!=null && e.getItem().getType()!=Material.AIR && e.getItem().hasItemMeta()) {
+                for(FoodItemXL item : FoodItemXL.values()) {
+                    if(item.getItem().getItemMeta().equals(e.getItem().getItemMeta())) {
+                        // Check if the crop exists
+                        if(CropXL.getCropXL(item)!=null) {
+                            // The crop is valid
+                            Block block = e.getClickedBlock().getLocation().getWorld().getBlockAt(e.getClickedBlock().getLocation().add(0,1,0));
+                            block.setType(Material.WHEAT);
+                            block=e.getClickedBlock().getLocation().getWorld().getBlockAt(e.getClickedBlock().getLocation().add(0,1,0));
+                            NBT.modify(block.getState(), nbt->{
+                                nbt.setString("crop",CropXL.getCropXL(item).name());
+                            });
+                            // Set the crop
+                        }
+                    }
+                }
             }
         }
     }

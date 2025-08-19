@@ -3,6 +3,7 @@ package com.mineshaft.mineshaftAHardcodedItemPort;
 import com.mineshaft.mineshaftAHardcodedItemPort.command.GetItemCommand;
 import com.mineshaft.mineshaftAHardcodedItemPort.command.GetItemTabCompleter;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.ConfigManager;
+import com.mineshaft.mineshaftAHardcodedItemPort.manager.CropListener;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.ItemRegisterXL;
 import com.mineshaft.mineshaftapi.manager.item.crafting.RecipeRegistrar;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public final class MineshaftItemPort extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new FoodListener(), this);
         Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
+        Bukkit.getPluginManager().registerEvents(new CropListener(), this);
         configManager.setupConfig();
 
         recipeRegistrar = new RecipeRegistrar("mineshaftitemport");
