@@ -98,6 +98,8 @@ public class InteractListener implements Listener {
                             Block block = e.getClickedBlock().getLocation().getWorld().getBlockAt(e.getClickedBlock().getLocation().add(0,1,0));
                             block.setType(Material.WHEAT);
                             block=e.getClickedBlock().getLocation().getWorld().getBlockAt(e.getClickedBlock().getLocation().add(0,1,0));
+                            // TODO: UPDATE TO USE BLOCK LOCATION REGISTRY
+
                             NBT.modify(block.getState(), nbt->{
                                 nbt.setString("crop",CropXL.getCropXL(item).name());
                             });
