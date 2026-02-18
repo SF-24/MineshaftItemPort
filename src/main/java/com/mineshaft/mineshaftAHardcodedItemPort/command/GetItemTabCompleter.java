@@ -88,7 +88,8 @@ public class GetItemTabCompleter implements TabCompleter {
                 return StringUtil.copyPartialMatches(args[3], itemList,new ArrayList<>());
             }
         }else if(args.length==3 && DrinkManager.isDrink(args[1])) {
-            return StringUtil.copyPartialMatches(args[1], DrinkManager.getPossibleContainers(Objects.requireNonNull(DrinkManager.getDrink(Objects.requireNonNullElse(args[0], "")))), new ArrayList<>());
+            // TODO: Fix
+            return StringUtil.copyPartialMatches(args[2], DrinkManager.getPossibleContainers(Objects.requireNonNull(DrinkManager.getDrink(Objects.requireNonNullElse(args[1], "")))), new ArrayList<>());
         } else if(args.length==2 && args[0].equals("make_container")) {
             return StringUtil.copyPartialMatches(args[1], List.of(Container.TANKARD.name(),Container.BOTTLE.name(),Container.BOWL.name()), new ArrayList<>());
         }

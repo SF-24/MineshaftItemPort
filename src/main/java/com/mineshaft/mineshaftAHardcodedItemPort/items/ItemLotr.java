@@ -24,13 +24,15 @@ public class ItemLotr {
 
     public static ItemStack getItem(String name, String type) {
 
-        if(DrinkManager.getPossibleContainers(DrinkManager.getDrink(name)).isEmpty()) {
-            // CONTAINER DOES NOT EXIST
-            return new ItemStack(Material.BEDROCK);
-        }
-
+        // Ent draught
         if(name.equalsIgnoreCase("ent_draught")) {
             return getEntDraught(type);
+        }
+
+        // Otherwise:
+        if(DrinkManager.getPossibleContainers(DrinkManager.getDrink(name))!=null && DrinkManager.getPossibleContainers(DrinkManager.getDrink(name)).isEmpty()) {
+            // CONTAINER DOES NOT EXIST
+            return new ItemStack(Material.BEDROCK);
         }
 
         ItemStack item;

@@ -160,8 +160,9 @@ public class GetItemCommand implements CommandExecutor {
                 player.sendMessage(ChatColor.RED + "Invalid item!");
             }
         }
-        player.getInventory().addItem(item);
-
+        if(item != null) {
+            player.getInventory().addItem(item);
+        }
         return false;
     }
 }

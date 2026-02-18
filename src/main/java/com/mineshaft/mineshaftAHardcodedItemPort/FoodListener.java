@@ -3,7 +3,6 @@ package com.mineshaft.mineshaftAHardcodedItemPort;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.PlayerManager;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 import com.mineshaft.mineshaftapi.nbtapi.NBT;
-import dev.jsinco.brewery.bukkit.TheBrewingProject;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
