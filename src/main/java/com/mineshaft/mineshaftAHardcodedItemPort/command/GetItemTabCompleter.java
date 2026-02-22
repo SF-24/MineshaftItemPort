@@ -11,6 +11,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.util.StringUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +20,7 @@ import java.util.Objects;
 
 public class GetItemTabCompleter implements TabCompleter {
     @Override
-    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         if(args.length==1) {
             return StringUtil.copyPartialMatches(args[0], Arrays.asList("lotr","teleport_scroll","make_container","xl_food","container","create","currency","wand","chocolate_frog_card","food"),new ArrayList<>());
         } else if(args.length==2 && args[0].equalsIgnoreCase("lotr")) {
