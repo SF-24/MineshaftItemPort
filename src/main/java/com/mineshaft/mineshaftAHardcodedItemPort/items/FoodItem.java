@@ -5,7 +5,7 @@ import com.mineshaft.mineshaftAHardcodedItemPort.items.chocolate_frog_card.Choco
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.ContainerUtil;
 import com.mineshaft.mineshaftapi.nbtapi.NBT;
-import com.mineshaft.mineshaftapi.util.ItemUtil;
+import com.mineshaft.mineshaftapi.util.item.ItemUtil;
 import com.mineshaft.mineshaftapi.util.formatter.TextFormatter;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import lombok.Getter;

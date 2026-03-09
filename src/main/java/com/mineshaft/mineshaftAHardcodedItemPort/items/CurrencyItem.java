@@ -1,6 +1,6 @@
 package com.mineshaft.mineshaftAHardcodedItemPort.items;
 
-import com.mineshaft.mineshaftapi.util.ItemUtil;
+import com.mineshaft.mineshaftapi.util.item.ItemUtil;
 import com.mineshaft.mineshaftapi.util.formatter.TextFormatter;
 import lombok.Getter;
 import org.bukkit.Material;

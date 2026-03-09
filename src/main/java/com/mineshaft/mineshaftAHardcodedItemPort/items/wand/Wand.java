@@ -1,12 +1,14 @@
 package com.mineshaft.mineshaftAHardcodedItemPort.items.wand;
 
 import com.mineshaft.mineshaftapi.nbtapi.NBT;
-import com.mineshaft.mineshaftapi.util.ItemUtil;
+import com.mineshaft.mineshaftapi.util.item.ItemUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
+
+;
 
 public class Wand {
 

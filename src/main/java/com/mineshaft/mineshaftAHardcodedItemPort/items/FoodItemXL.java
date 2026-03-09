@@ -2,8 +2,8 @@ package com.mineshaft.mineshaftAHardcodedItemPort.items;
 
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.ContainerUtil;
-import com.mineshaft.mineshaftapi.util.ItemUtil;
 import com.mineshaft.mineshaftapi.util.formatter.TextFormatter;
+import com.mineshaft.mineshaftapi.util.item.ItemUtil;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
