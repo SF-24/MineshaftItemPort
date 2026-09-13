@@ -1,11 +1,11 @@
 package com.mineshaft.mineshaftAHardcodedItemPort.manager.drinks;
 
+import com.mineshaft.mineshaftAHardcodedItemPort.MineshaftItemPort;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.ConfigBridge;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 import com.mineshaft.mineshaftapi.nbtapi.NBT;
 import dev.jsinco.brewery.api.brew.Brew;
 import dev.jsinco.brewery.api.recipe.Recipe;
-import dev.jsinco.brewery.bukkit.TheBrewingProject;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -14,10 +14,10 @@ public class DrinkManager {
 
     public static int getBrewModelData(Brew brew, Container container) {
         // Return the custom texture
-        if(brew.closestRecipe(TheBrewingProject.getInstance().getRecipeRegistry()).isPresent()) {
-            Recipe<ItemStack> recipe = brew.closestRecipe(TheBrewingProject.getInstance().getRecipeRegistry()).get();
+        if(brew.closestRecipe(MineshaftItemPort.getInstance().getBrewingProjectApi().getRecipeRegistry()).isPresent()) {
+            Recipe<ItemStack> recipe = brew.closestRecipe(MineshaftItemPort.getInstance().getBrewingProjectApi().getRecipeRegistry()).get();
 
-            System.out.println("BREW: " + brew.closestRecipe(TheBrewingProject.getInstance().getRecipeRegistry()).get().getRecipeName());
+            System.out.println("BREW: " + brew.closestRecipe(MineshaftItemPort.getInstance().getBrewingProjectApi().getRecipeRegistry()).get().getRecipeName());
             System.out.println("MODEL: " + ConfigBridge.getCustomModelDataOfBrew(recipe.getRecipeName(), container));
             return ConfigBridge.getCustomModelDataOfBrew(recipe.getRecipeName(), container);
         }

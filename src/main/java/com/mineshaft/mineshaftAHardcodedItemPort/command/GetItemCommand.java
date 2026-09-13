@@ -1,5 +1,6 @@
 package com.mineshaft.mineshaftAHardcodedItemPort.command;
 
+import com.mineshaft.mineshaftAHardcodedItemPort.MineshaftItemPort;
 import com.mineshaft.mineshaftAHardcodedItemPort.items.*;
 import com.mineshaft.mineshaftAHardcodedItemPort.items.chocolate_frog_card.ChocolateFrogCard;
 import com.mineshaft.mineshaftAHardcodedItemPort.items.wand.Wand;
@@ -9,7 +10,6 @@ import com.mineshaft.mineshaftAHardcodedItemPort.items.wand.WandWood;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.container.Container;
 import com.mineshaft.mineshaftAHardcodedItemPort.manager.drinks.DrinkManager;
 import com.mineshaft.mineshaftapi.nbtapi.NBT;
-import dev.jsinco.brewery.bukkit.TheBrewingProject;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -49,10 +49,10 @@ public class GetItemCommand implements CommandExecutor {
             }
             ItemStack item = player.getInventory().getItemInMainHand();
             ItemMeta meta = item.getItemMeta();
-            if(TheBrewingProject.getInstance().getBrewManager().fromItem(item).isPresent()) {
+            if(MineshaftItemPort.getInstance().getBrewingProjectApi().getBrewManager().fromItem(item).isPresent()) {
                 if(containerVar.equals(Container.TANKARD)) {
                     if(meta instanceof PotionMeta) {
-                        meta.setCustomModelData(DrinkManager.getBrewModelData(TheBrewingProject.getInstance().getBrewManager().fromItem(item).get(), containerVar));
+                        meta.setCustomModelData(DrinkManager.getBrewModelData(MineshaftItemPort.getInstance().getBrewingProjectApi().getBrewManager().fromItem(item).get(), containerVar));
                         //((PotionMeta) meta).setColor(Color.fromRGB(255,255,255));
                     }
                 } else {

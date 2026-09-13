@@ -51,15 +51,7 @@
             <plugin>
                 <groupId>ca.bkaw</groupId>
                 <artifactId>paper-nms-maven-plugin</artifactId>
-                <version>1.4.7</version>
-                <executions>
-                    <execution>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>remap</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <version>1.5</version>
             </plugin>
         </plugins>
         <resources>
@@ -90,8 +82,9 @@
             <layout>default</layout>
         </repository>
         <repository>
-            <id>jsinco-repo</id>
-            <url>https://repo.jsinco.dev/releases</url>
+            <id>reposilite-repository</id>
+            <name>BreweryTeam Maven</name>
+            <url>https://repo.breweryteam.dev/releases</url>
         </repository>
     </repositories>
 
@@ -106,7 +99,7 @@
         <dependency>
             <groupId>ca.bkaw</groupId>
             <artifactId>paper-nms</artifactId>
-            <version>1.21.4-SNAPSHOT</version>
+            <version>1.21.11-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -116,9 +109,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>dev.jsinco.brewery.bukkit</groupId>
-            <artifactId>TheBrewingProject</artifactId>
-            <version>2.4.0</version>
+            <groupId>dev.jsinco.brewery</groupId>
+            <artifactId>thebrewingproject-bukkit</artifactId>
+            <version>3.3.3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
